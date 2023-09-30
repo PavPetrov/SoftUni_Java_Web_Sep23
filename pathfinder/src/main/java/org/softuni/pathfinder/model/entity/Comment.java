@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "comments")
-public class Comments extends BaseEntity {
-    public Comments() {
+public class Comment extends BaseEntity {
+    public Comment() {
     }
 
     @Column(nullable = false)

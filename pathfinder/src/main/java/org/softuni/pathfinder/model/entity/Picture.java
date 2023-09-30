@@ -3,11 +3,12 @@ package org.softuni.pathfinder.model.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
-public class Pictures extends BaseEntity {
-    public Pictures() {
+@Table(name ="pictures")
+public class Picture extends BaseEntity {
+    public Picture() {
     }
 
     private String title;

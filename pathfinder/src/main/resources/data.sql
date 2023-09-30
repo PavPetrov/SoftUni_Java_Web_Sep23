@@ -127,8 +127,8 @@ INSERT INTO routes_categories VALUES (4,1);
 INSERT INTO routes_categories VALUES (4,2);
 INSERT INTO routes_categories VALUES (4,3);
 INSERT INTO routes_categories VALUES (4,4);
-INSERT INTO routes_categories VALUES (5,1);
-INSERT INTO routes_categories VALUES (5,2);
+INSERT INTO routes_categories VALUES (1,5);
+INSERT INTO routes_categories VALUES (2,5);
 
 
 

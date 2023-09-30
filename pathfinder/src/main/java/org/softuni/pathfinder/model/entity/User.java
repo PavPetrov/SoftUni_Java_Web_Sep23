@@ -1,7 +1,10 @@
 package org.softuni.pathfinder.model.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
 import org.softuni.pathfinder.model.enums.UserLevel;
+import org.springframework.data.repository.cdi.Eager;
+
 import java.util.Set;
 
 @Entity
@@ -22,7 +25,7 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private UserLevel level;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
     public int getAge() {
