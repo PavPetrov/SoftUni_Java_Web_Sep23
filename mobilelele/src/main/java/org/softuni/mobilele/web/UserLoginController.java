@@ -29,4 +29,12 @@ public class UserLoginController {
 
         return loginSuccessful ? "index" : "auth-login";
     }
+
+    @GetMapping("/users/logout")
+    public String logout() {
+        userService.logout();
+        return "index";
+    }
+
+
 }
