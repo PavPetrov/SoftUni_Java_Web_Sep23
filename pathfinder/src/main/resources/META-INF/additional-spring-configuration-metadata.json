@@ -1,0 +1,33 @@
+{
+  "properties": [
+    {
+      "name": "resources.static-locations",
+      "type": "java.lang.String",
+      "description": "Description for resources.static-locations."
+    },
+    {
+      "name": "thymeleaf.cache",
+      "type": "java.lang.String",
+      "description": "Description for thymeleaf.cache."
+    },
+    {
+      "name": "thymeleaf.mode",
+      "type": "java.lang.String",
+      "description": "Description for thymeleaf.mode."
+    },
+    {
+      "name": "thymeleaf.encoding",
+      "type": "java.lang.String",
+      "description": "Description for thymeleaf.encoding."
+    },
+    {
+      "name": "thymeleaf.prefix",
+      "type": "java.lang.String",
+      "description": "Description for thymeleaf.prefix."
+    },
+    {
+      "name": "resources.cache.period",
+      "type": "java.lang.String",
+      "description": "Description for resources.cache.period."
+    }
+  ] }
