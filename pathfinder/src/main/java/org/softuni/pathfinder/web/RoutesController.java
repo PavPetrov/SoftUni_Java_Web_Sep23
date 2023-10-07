@@ -8,14 +8,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class RoutesController {
 
     @GetMapping("/routes/add")
-    public String addRoute(){
+    public String addRoute() {
         return "add-route";
     }
 
 
     @PostMapping("/routes/add")
-    public String addRoute(String name){
+    public String addRoute(String name) {
         return "index";
+    }
+
+    @GetMapping("/routes")
+    public String routs(String name) {
+        return "routes";
     }
 
 }

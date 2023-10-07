@@ -25,12 +25,12 @@ public class UserLoginController {
 
         boolean isLogged = userService.loginUser(loginUserDto);
 
-        return isLogged ? "index" : "login";
+        return isLogged ? "redirect:/" : "redirect:/users/login";
     }
 
     @GetMapping("/users/logout")
     public String logout(){
         userService.logout();
-        return "index";
+        return "redirect:/";
     }
 }
