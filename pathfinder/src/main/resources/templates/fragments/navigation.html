@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<header th:fragment="navigation">
+    <nav class="main-nav">
+        <ul>
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li th:unless="${@loggedUser.isLogged()}">
+                <a href="/users/login">Login</a>
+            </li>
+            <li th:unless="${@loggedUser.isLogged()}">
+                <a href="/users/register">Register</a>
+            </li>
+            <li>
+                <a href="/">About</a>
+            </li>
+            <li th:if="${@loggedUser.isLogged()}">
+                <a href="/routes/add">Add new route</a>
+            </li>
+            <li>
+                <a href="/">Profile</a>
+            </li>
+            <li>
+                <a href="/">Admin</a>
+            </li>
+            <li th:if="${@loggedUser.isLogged()}">
+<!--                <form th:action="@{users/logout}" method="POST">-->
+<!--                    <input class="main-nav a" type="submit" value="Logout"/>-->
+<!--                </form>-->
+
+                <a href="/users/logout">Logout</a>
+            </li>
+            <li>
+                <th:block th:text="${@loggedUser.isLogged()}
+                    ? ${@loggedUser.getFullName()} : 'Anonymous'"></th:block>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+</body>
+</html>

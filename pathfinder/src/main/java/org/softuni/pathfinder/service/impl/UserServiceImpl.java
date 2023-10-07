@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.logging.Level;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -41,13 +42,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean loginUser(LoginUserDto loginUserDto) {
-//Tuka garmi neshto zaradi bazata!!!!
         User currentUser = userRepository.findByUsername(loginUserDto.username());
 
         if (currentUser != null) {
+            //TODO handle -> Trows IllegalArgumentException if password is not crypt with this encoder
             if (passwordEncoder.matches(loginUserDto.password(), currentUser.getPassword())) {
-                loggedUser.setLoggedUser(currentUser);
-                return true;
+
+                loggedUser.setLogged(true);
+                loggedUser.setUserLevel(UserLevel.BEGINNER);
+                loggedUser.setFullName(currentUser.getFullName());
+                loggedUser.setUsername(currentUser.getUsername());
+
+               return true;
             }
         }
         return false;
@@ -55,8 +61,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void logout() {
-        loggedUser.setLoggedUser(null);
-        loggedUser.setLogged(false);
+        loggedUser.reset();
     }
 
     private User map(RegisterUserDto registerUserDto) {
