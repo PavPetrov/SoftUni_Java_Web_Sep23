@@ -5,9 +5,8 @@ import org.softuni.pathfinder.model.entity.Category;
 import org.softuni.pathfinder.model.entity.Route;
 import org.softuni.pathfinder.repository.CategoryRepository;
 import org.softuni.pathfinder.repository.RouteRepository;
-import org.softuni.pathfinder.repository.UserRepository;
 import org.softuni.pathfinder.service.RoutesService;
-import org.softuni.pathfinder.session.LoggedUser;
+import org.softuni.pathfinder.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -19,17 +18,16 @@ public class RoutesServiceImpl implements RoutesService {
 
     private final CategoryRepository categoryRepository;
 
-    private final LoggedUser loggedUser;
+    private final UserService userService;
 
-    private final UserRepository userRepository;
 
     public RoutesServiceImpl(RouteRepository routeRepository,
                              CategoryRepository categoryRepository,
-                             LoggedUser loggedUser, UserRepository userRepository) {
+                             UserService userService) {
         this.routeRepository = routeRepository;
         this.categoryRepository = categoryRepository;
-        this.loggedUser = loggedUser;
-        this.userRepository = userRepository;
+        this.userService = userService;
+
     }
 
     @Override
@@ -49,7 +47,8 @@ public class RoutesServiceImpl implements RoutesService {
         route.setLevel(addRouteDto.level());
         route.setGpxCoordinates(addRouteDto.gpxCoordinates());
         route.setVideoUrl(addRouteDto.videoUrl());
-        route.setAuthor(userRepository.findByUsername(loggedUser.getUsername()));
+
+        route.setAuthor(userService.getLoggedUser());
 
         Set<Category> categories = categoryRepository.findByNameIn(addRouteDto.categories());
 
