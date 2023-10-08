@@ -1,7 +1,7 @@
 package org.softuni.pathfinder.model.entity;
 
 import jakarta.persistence.*;
-import org.softuni.pathfinder.model.enums.CategoryName;
+import org.softuni.pathfinder.model.enums.CategoryEnum;
 
 @Entity
 @Table(name = "categories")
@@ -10,18 +10,19 @@ public class Category extends BaseEntity {
     }
 
     @Enumerated(EnumType.STRING)
-    private CategoryName name;
+    private CategoryEnum name;
 
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
 
-    public CategoryName getName() {
+    public CategoryEnum getName() {
         return name;
     }
 
-    public void setName(CategoryName name) {
+    public Category setName(CategoryEnum name) {
         this.name = name;
+        return this;
     }
 
     public String getDescription() {
