@@ -1,26 +1,48 @@
 package com.likebookapp.model.entity;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
-@Table(name ="users")
+@Table(name = "users")
 public class User extends BaseEntity {
+
+    // @Column(nullable = false, unique = true)
+    //    private String username;
+    //
+    //    @Column(nullable = false)
+    //    private String password;
+    //
+    //    @Column(nullable = false, unique = true)
+    //    private String email;
+    //
+    //    @OneToMany(mappedBy = "user")
+    //    private Set<Post> posts;
+    //
+    //    @ManyToMany(mappedBy = "userLikes",fetch = FetchType.EAGER)
+    //    private Set<Post> likedPosts;
 
     @Column(unique = true, nullable = false)
     public String username;
 
     @Column(nullable = false)
-    @Size(min=3, max = 20)
     public String password;
 
     @Column(unique = true, nullable = false)
     @Email
     public String email;
+
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
+
+    @ManyToMany(mappedBy = "userLikes", fetch = FetchType.EAGER)
+    private List<Post> likedPosts;
+
+    public User() {
+    }
 
     public String getUsername() {
         return username;
@@ -49,6 +71,21 @@ public class User extends BaseEntity {
         return this;
     }
 
-    public User() {
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public User setPosts(List<Post> posts) {
+        this.posts = posts;
+        return this;
+    }
+
+    public List<Post> getLikedPosts() {
+        return likedPosts;
+    }
+
+    public User setLikedPosts(List<Post> likedPosts) {
+        this.likedPosts = likedPosts;
+        return this;
     }
 }

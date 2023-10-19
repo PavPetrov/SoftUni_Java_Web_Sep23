@@ -1,29 +1,21 @@
 package com.likebookapp.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity()
 public class Mood extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
-    public MoodEnum name;
+    public MoodEnum moodsName;
 
     @Column()
     public String description;
 
+    @OneToMany(mappedBy = "mood")
+    private Set<Post> posts;
+
     public Mood() {
-    }
-
-    public MoodEnum getName() {
-        return name;
-    }
-
-    public Mood setName(MoodEnum name) {
-        this.name = name;
-        return this;
     }
 
     public String getDescription() {
@@ -32,6 +24,24 @@ public class Mood extends BaseEntity {
 
     public Mood setDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    public Set<Post> getPosts() {
+        return posts;
+    }
+
+    public Mood setPosts(Set<Post> posts) {
+        this.posts = posts;
+        return this;
+    }
+
+    public MoodEnum getMoodsName() {
+        return moodsName;
+    }
+
+    public Mood setMoodsName(MoodEnum moodsName) {
+        this.moodsName = moodsName;
         return this;
     }
 }

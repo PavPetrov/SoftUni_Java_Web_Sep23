@@ -6,12 +6,13 @@ import javax.validation.constraints.Size;
 
 public class UserRegistrationDTO {
 
-    @Size(min = 3, max = 20)
+    @Size(min = 3, max = 20,  message = "!Username length between 3 and 20!")
     public String username;
-    @Email
+    @Email(message = "!Enter valid e-mail!")
     @NotBlank
     public String email;
-    @Size(min = 3, max = 20)
+
+    @Size(min = 3, max = 20, message = "!Password length between 3 and 20!")
     public String password;
 
     @Size(min = 3, max = 20)

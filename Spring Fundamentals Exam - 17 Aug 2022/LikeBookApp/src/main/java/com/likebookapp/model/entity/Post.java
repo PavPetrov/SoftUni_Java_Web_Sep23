@@ -1,30 +1,42 @@
 package com.likebookapp.model.entity;
 
-import org.springframework.data.repository.cdi.Eager;
-import org.springframework.web.bind.annotation.Mapping;
-
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
 @Table(name = "posts")
 public class Post extends BaseEntity {
 
+
     @Column(nullable = false)
-    @Size(min=2, max =150)
     public String content;
 
+    @Column
+    private int likes;
+
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<User> userLikes;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "moods_id")
     private Mood mood;
 
+
+
     public Post() {
+    }
+
+    public Mood getMood() {
+        return mood;
+    }
+
+    public Post setMood(Mood mood) {
+        this.mood = mood;
+        return this;
     }
 
     public String getContent() {
@@ -33,6 +45,15 @@ public class Post extends BaseEntity {
 
     public Post setContent(String content) {
         this.content = content;
+        return this;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public Post setLikes(int likes) {
+        this.likes = likes;
         return this;
     }
 
@@ -54,12 +75,5 @@ public class Post extends BaseEntity {
         return this;
     }
 
-    public Mood getMood() {
-        return mood;
-    }
 
-    public Post setMood(Mood mood) {
-        this.mood = mood;
-        return this;
-    }
 }
