@@ -94,6 +94,17 @@ public class UserController {
         return isLogged ? "redirect:/home" : "redirect:login";
     }
 
+
+    @GetMapping("/logout")
+    public String logout(){
+
+        currentUser.logout();
+
+        return "redirect:/";
+    }
+
+
+
     @ModelAttribute
     public UserRegistrationDTO userRegistrationDTO() {
         return new UserRegistrationDTO();

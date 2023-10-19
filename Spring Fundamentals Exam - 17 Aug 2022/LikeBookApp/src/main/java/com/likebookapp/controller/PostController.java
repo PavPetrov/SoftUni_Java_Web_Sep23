@@ -6,10 +6,7 @@ import com.likebookapp.service.PostService;
 import com.likebookapp.util.CurrentUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -50,7 +47,15 @@ public class PostController {
         postService.addPost(postAddDTO);
 
 
-        return currentUser.isLogged() ? "home" : "redirect:/";
+        return currentUser.isLogged() ? "redirect:/home" : "redirect:/";
+    }
+
+    @GetMapping("remove/{id}")
+    public String remove(@PathVariable Long id) {
+
+        postService.removePost(id);
+
+        return "redirect:/";
     }
 
     @ModelAttribute()

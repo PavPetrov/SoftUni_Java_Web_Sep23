@@ -28,10 +28,7 @@
                 </th:block>
 
                 <li th:if="${@currentUser.isLogged()}" class="nav-item col-md-4">
-                    <th:block
-                              th:text="${@currentUser.getUsername()}">
-                    </th:block>
-                    <a class="nav-link text-white active h5" href="/">Logout</a>
+                    <a class="nav-link text-white active h5" th:href="@{/users/logout}">Logout</a>
                 </li>
             </ul>
         </div>

@@ -42,4 +42,10 @@ public class CurrentUser {
         isLogged = logged;
         return this;
     }
+
+    public void logout() {
+        this.username =null;
+        this.id =null;
+        this.isLogged = false;
+    }
 }
