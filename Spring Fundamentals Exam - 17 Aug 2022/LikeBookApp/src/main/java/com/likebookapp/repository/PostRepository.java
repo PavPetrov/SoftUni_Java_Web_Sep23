@@ -1,7 +1,6 @@
 package com.likebookapp.repository;
 
 import com.likebookapp.model.entity.Post;
-import com.likebookapp.model.viewModel.UserPostViewModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

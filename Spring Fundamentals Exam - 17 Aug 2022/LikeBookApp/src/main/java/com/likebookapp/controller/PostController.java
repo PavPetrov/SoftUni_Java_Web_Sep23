@@ -58,6 +58,14 @@ public class PostController {
         return "redirect:/";
     }
 
+    @GetMapping("like/{id}")
+    public String like(@PathVariable Long id) {
+
+        postService.likePost(id);
+
+        return "redirect:/";
+    }
+
     @ModelAttribute()
     public MoodEnum[] mood() {
         return MoodEnum.values();
