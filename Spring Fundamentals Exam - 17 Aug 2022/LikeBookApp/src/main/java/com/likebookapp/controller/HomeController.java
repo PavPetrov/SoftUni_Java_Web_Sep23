@@ -36,6 +36,7 @@ public class HomeController {
         model.addAttribute("userPosts", allPosts.getUserPosts());
         model.addAttribute("allOtherPosts", allPosts.getAllOtherPosts());
 
+
         return isLogged ? "home" : "redirect:/";
     }
 

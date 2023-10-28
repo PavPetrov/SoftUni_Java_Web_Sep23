@@ -39,6 +39,7 @@ public class UserController {
     public String register(@Valid UserRegistrationDTO userRegistrationDTO,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes) {
+
         if (bindingResult.hasErrors() ||
                 !userRegistrationDTO.password.equals(userRegistrationDTO.confirmPassword)) {
             redirectAttributes.addFlashAttribute("userRegistrationDTO", userRegistrationDTO);

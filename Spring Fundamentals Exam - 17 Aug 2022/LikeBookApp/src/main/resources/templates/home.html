@@ -28,7 +28,8 @@
 
             <div class="col-6 mt-1 mb-1">
                 <h3 class="mySticky bg-gray text-dark  mb-0 mt-2">All Other Posts</h3>
-                <h6 class="mySticky bg-gray text-dark  mb-0 mt-0">{otherUsersPostsTotalCount} total posts</h6>
+                <h6 class="mySticky bg-gray text-dark  mb-0 mt-0" th:text="${allOtherPosts.size()}">
+                    {otherUsersPostsTotalCount} total posts</h6>
                 <div class="bg-dark rounded m-auto" style="height: 68.5vh; overflow: auto">
                     <th:block th:each="otherPost: ${allOtherPosts}">
                         <br>
@@ -48,7 +49,7 @@
                                     <tr>
                                         <td style="width: 10%" th:text="|Mood: ${otherPost.getMoodName()}|">Mood: {mood}</td>
                                         <td class="text-primary" th:text="|${otherPost.getLikes()} likes|">{numberOfLikes} likes</td>
-                                        <td><a class="ml-3 text-danger" th:href="@{/posts/like/{id}(id=${otherPost.getId()})}"><img src="/img/like.png" width="43px" height="40px"></a></td>
+                                        <td th:unless="${otherPost.isLikedByUserId(@currentUser.getId())}"><a class="ml-3 text-danger" th:href="@{/posts/like/{id}(id=${otherPost.getId()})}"><img src="/img/like.png" width="43px" height="40px"></a></td>
                                     </tr>
                                 </table>
                             </li>
