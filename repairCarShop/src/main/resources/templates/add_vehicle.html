@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/commons::head"></head>
+
+<body>
+<!-- Navigation-->
+<header th:replace="fragments/commons::header"></header>
+
+<div class="container layout_padding-bottom">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Client {Full Name} add vehicle</div>
+                <div class="card-body">
+                    <form name="my-form"
+                          th:action="@{/clients/add_vehicle}"
+                          th:method="post">
+
+                        <!-- Brand !-->
+                        <div class="form-group row">
+                            <label for="brand" class="col-md-4 col-form-label text-md-right">Brand</label>
+                            <div class="col-md-6">
+                                <input type="text" id="brand" class="form-control" name="brand">
+                            </div>
+                        </div>
+
+                        <!-- Model !-->
+                        <div class="form-group row">
+                            <label for="model" class="col-md-4 col-form-label text-md-right">Model</label>
+                            <div class="col-md-6">
+                                <input type="text" id="model" class="form-control" name="model">
+                            </div>
+                        </div>
+
+                        <!--                        The 1st value is the beginning of count,
+                                                    the 2nd is the maximum value and the 3rd is the incremental value-->
+
+                        <!--                        ${#numbers.sequence( 1, 4, 1)}-->
+
+                        <!-- Year !-->
+                        <div class="form-group row">
+                            <label for="year" class="col-md-4 col-form-label text-md-right">Year</label>
+                            <div class="col-md-6"
+                                 th:with="yearNow=${#dates.year(#dates.createNow())},
+                                            yearOldest=${@environment.getProperty('carYear.oldest')}">
+                                <select id="year" class="form-control" name="year">
+                                    <option value="">- Select year -</option>
+                                    <option th:each="year : ${#numbers.sequence(yearNow, yearOldest,-1)}"
+                                            th:value="${year}" th:text="${year}">- Select engine -
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <!-- Color !-->
+                        <div class="form-group row">
+                            <label for="color" class="col-md-4 col-form-label text-md-right">Color</label>
+                            <div class="col-md-6">
+                                <input type="text" id="color" class="form-control" name="color">
+                            </div>
+                        </div>
+
+                        <!-- Engine TYPE !-->
+                        <div class="form-group row">
+                            <label for="engine" class="col-md-4 col-form-label text-md-right">Engine type</label>
+                            <div class="col-md-6" th:field="${engineEnumList}">
+                                <select id="engine" class="form-control" name="engine">
+                                    <option value="" selected disabled>- Select engine -</option>
+                                    <option th:each="e:${engineEnumList}"
+                                            th:value="${e}" th:text="${e.toString()}">Diesel</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <!-- Vehicle  category TYPE !-->
+                        <div class="form-group row">
+                            <label for="category" class="col-md-4 col-form-label text-md-right">Category</label>
+                            <div class="col-md-6" th:field="${vehicleCategoryEnumList}">
+                                <select id="category" class="form-control" name="category">
+                                    <option value="" selected disabled>- Select engine -</option>
+                                    <option th:each="cat:${vehicleCategoryEnumList}"
+                                            th:text="${cat.toString()}"
+                                            th:value="${cat}">car</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 offset-md-4">
+                            <button type="submit" class="btn btn-primary">
+                                Add
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer th:replace="fragments/commons::footer"></footer>
+
+</body>
+</html>
