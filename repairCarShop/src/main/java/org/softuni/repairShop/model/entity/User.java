@@ -1,15 +1,15 @@
 package org.softuni.repairShop.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
 import org.softuni.repairShop.model.enums.RoleEnum;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class User extends BaseEntity{
+@Table(name = "users")
+public class User extends BaseEntity {
 
     private String fullName;
     private String username;
@@ -18,7 +18,7 @@ public class User extends BaseEntity{
     private Boolean isActive;
 
     @Enumerated(EnumType.STRING)
-    private List<RoleEnum> roles;
+    private RoleEnum userRole;
 
     @OneToMany
     private List<Task> tasks;
@@ -73,14 +73,6 @@ public class User extends BaseEntity{
         return this;
     }
 
-    public List<RoleEnum> getRoles() {
-        return roles;
-    }
-
-    public User setRoles(List<RoleEnum> roles) {
-        this.roles = roles;
-        return this;
-    }
 
     public Boolean getActive() {
         return isActive;
@@ -88,6 +80,15 @@ public class User extends BaseEntity{
 
     public User setActive(Boolean active) {
         isActive = active;
+        return this;
+    }
+
+    public RoleEnum getUserRole() {
+        return userRole;
+    }
+
+    public User setUserRole(RoleEnum userRole) {
+        this.userRole = userRole;
         return this;
     }
 }

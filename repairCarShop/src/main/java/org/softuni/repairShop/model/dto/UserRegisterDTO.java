@@ -1,6 +1,9 @@
 package org.softuni.repairShop.model.dto;
 
+
+import org.softuni.repairShop.model.entity.UserRole;
 import org.softuni.repairShop.model.enums.RoleEnum;
+
 
 import java.util.List;
 
@@ -12,7 +15,7 @@ public class UserRegisterDTO {
     private String password;
     private String confirmPassword;
     private String phoneNumber;
-    private List<RoleEnum> roles;
+    private RoleEnum userRole;
 
     public UserRegisterDTO() {
     }
@@ -35,14 +38,6 @@ public class UserRegisterDTO {
         return this;
     }
 
-    public List<RoleEnum> getRoles() {
-        return roles;
-    }
-
-    public UserRegisterDTO setRoles(List<RoleEnum> roles) {
-        this.roles = roles;
-        return this;
-    }
 
     public String getEmail() {
         return email;
@@ -52,8 +47,6 @@ public class UserRegisterDTO {
         this.email = email;
         return this;
     }
-
-
 
     public String getPassword() {
         return password;
@@ -82,5 +75,12 @@ public class UserRegisterDTO {
         return this;
     }
 
+    public RoleEnum getUserRole() {
+        return userRole;
+    }
 
+    public UserRegisterDTO setUserRole(RoleEnum userRole) {
+        this.userRole = userRole;
+        return this;
+    }
 }

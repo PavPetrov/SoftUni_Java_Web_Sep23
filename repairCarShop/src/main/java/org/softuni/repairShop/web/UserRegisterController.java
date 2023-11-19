@@ -35,4 +35,9 @@ public class UserRegisterController {
     public RoleEnum[] roles(){
         return RoleEnum.values();
     }
+
+    @ModelAttribute
+    public UserRegisterDTO userRegisterDTO(){
+        return new UserRegisterDTO();
+    }
 }

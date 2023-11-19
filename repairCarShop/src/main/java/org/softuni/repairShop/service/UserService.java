@@ -6,4 +6,7 @@ public interface UserService {
     void register(UserRegisterDTO userRegisterDTO);
 
     void adminInit();
+
+    void workersInit();
+
 }

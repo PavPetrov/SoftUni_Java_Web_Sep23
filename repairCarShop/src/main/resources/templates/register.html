@@ -14,6 +14,7 @@
                 <div class="card-body">
                     <form name="my-form"
                           th:action="@{/users/register}"
+                          th:object="${userRegisterDTO}"
                           th:method="post">
                         <div class="form-group row">
                             <label for="fullName" class="col-md-4 col-form-label text-md-right">Full Name</label>
@@ -43,16 +44,29 @@
                             </div>
                         </div>
 
-                        <div class="form-group row" >
-                            <label for="roles" class="col-md-4 col-form-label text-md-right">Choose occupation</label>
-                            <div th:each="r:${roleEnumList}" class="form-check form-check-inline">
-                                 <input class="form-check-input"
-                                   type="checkbox" id="roles" name="roles"
-                                   th:value="${r}">
-                                <label class="form-check-label" for="roles"
-                                th:text="${r.getValue()}">roleEnum</label>
+                        <div class="form-group row">
+                            <label for="userRole" class="col-md-4 col-form-label text-md-right">Occupation</label>
+                            <div class="col-md-6" th:field="${roleEnumList}">
+                                <select id="userRole" class="form-control" name="userRole">
+                                    <option value="" selected disabled>- Choose occupation -</option>
+                                    <option th:each="r:${roleEnumList}"
+                                            th:value="${r}" th:text="${r.toString()}">Administrator</option>
+                                </select>
                             </div>
                         </div>
+
+
+<!--                        <div class="form-group row" >-->
+<!--                            <label for="userRoles" class="col-md-4 col-form-label text-md-right">Choose occupation</label>-->
+<!--                            <div th:each="r:${roleEnumList}" class="form-check form-check-inline">-->
+<!--                                 <input class="form-check-input"-->
+<!--                                   type="checkbox" id="userRoles" name="userRoles"-->
+<!--                                        th:field="*{userRoles}"-->
+<!--                                   th:value="${r}">-->
+<!--                                <label class="form-check-label" for="userRoles"-->
+<!--                                th:text="${r.getValue()}">roleEnum</label>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
