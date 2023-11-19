@@ -1,19 +1,29 @@
 package org.softuni.repairShop.model.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Fetch;
+import jakarta.validation.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.softuni.repairShop.model.enums.RoleEnum;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
 
+    @Column(nullable = false)
+    @Length(min = 5, max = 50)
     private String fullName;
+
+    @Column(nullable = false, unique = true)
+    @Length(min = 5, max=20)
     private String username;
+
+    @Column(nullable = false, unique = true)
+    @Length(min = 5, max=50)
+    @Email
     private String email;
+
+    @Column(nullable = false)
     private String password;
     private Boolean isActive;
 

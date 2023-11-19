@@ -2,15 +2,11 @@ package org.softuni.repairShop.service.impl;
 
 import org.softuni.repairShop.model.dto.UserRegisterDTO;
 import org.softuni.repairShop.model.entity.User;
-import org.softuni.repairShop.model.entity.UserRole;
 import org.softuni.repairShop.model.enums.RoleEnum;
 import org.softuni.repairShop.repository.UserRepository;
 import org.softuni.repairShop.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -58,7 +54,7 @@ public class UserServiceImpl implements UserService {
                     .setUsername("admin")
                     //        .setUserRoles(userRoles)
                     .setUserRole(RoleEnum.ADMINISTRATOR)
-                    .setPassword(passwordEncoder.encode("1234"))
+                    .setPassword(passwordEncoder.encode("12345"))
                     .setActive(true);
             userRepository.save(admin);
         }

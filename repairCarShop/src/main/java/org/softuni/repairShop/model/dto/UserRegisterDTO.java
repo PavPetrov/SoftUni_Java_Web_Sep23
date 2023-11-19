@@ -1,20 +1,40 @@
 package org.softuni.repairShop.model.dto;
 
 
-import org.softuni.repairShop.model.entity.UserRole;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
 import org.softuni.repairShop.model.enums.RoleEnum;
 
 
-import java.util.List;
-
 public class UserRegisterDTO {
-
+    @Column(nullable = false)
+    @Length(min = 5, max = 50,
+            message = "Full name length must be between 5 and 50 characters")
     private String fullName;
+
+    @Column(nullable = false)
+    @Length(min = 5, max = 50,
+            message = "Username length must be between 5 and 50 characters")
     private String username;
+
+    @Column(nullable = false)
+    @Length(min = 5, max = 50,
+            message = "Email length must be between 5 and 50 characters")
+    @Email(message = "Must be a valid e-mail")
     private String email;
+
+    @Column(nullable = false)
+    @Length(min = 5, max = 20,
+            message = "Password length must be between 5 and 50 characters")
     private String password;
+
+    @Column(nullable = false)
+    @Length(min = 5, max = 20)
     private String confirmPassword;
-    private String phoneNumber;
+
+    @NotNull(message = "Occupation required")
     private RoleEnum userRole;
 
     public UserRegisterDTO() {
@@ -37,7 +57,6 @@ public class UserRegisterDTO {
         this.username = username;
         return this;
     }
-
 
     public String getEmail() {
         return email;
@@ -66,14 +85,6 @@ public class UserRegisterDTO {
         return this;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public UserRegisterDTO setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-        return this;
-    }
 
     public RoleEnum getUserRole() {
         return userRole;
@@ -83,4 +94,5 @@ public class UserRegisterDTO {
         this.userRole = userRole;
         return this;
     }
+
 }
