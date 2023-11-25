@@ -1,5 +1,6 @@
 package org.softuni.repairShop.init;
 
+import org.softuni.repairShop.service.ClientService;
 import org.softuni.repairShop.service.UserRoleService;
 import org.softuni.repairShop.service.UserService;
 import org.springframework.boot.CommandLineRunner;
@@ -12,9 +13,12 @@ public class DBInit implements CommandLineRunner {
 
     private final UserRoleService userRoleService;
 
-    public DBInit(UserService userService, UserRoleService userRoleService) {
+    private final ClientService clientService;
+
+    public DBInit(UserService userService, UserRoleService userRoleService, ClientService clientService) {
         this.userService = userService;
         this.userRoleService = userRoleService;
+        this.clientService = clientService;
     }
 
     @Override
@@ -24,5 +28,6 @@ public class DBInit implements CommandLineRunner {
 
         userService.adminInit();
         userService.workersInit();
+        clientService.clientsInit();
     }
 }

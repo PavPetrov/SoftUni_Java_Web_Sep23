@@ -1,20 +1,49 @@
 package org.softuni.repairShop.config;
 
 
+import org.modelmapper.Converter;
+import org.modelmapper.ModelMapper;
+import org.softuni.repairShop.model.dto.ClientRegisterDTO;
+import org.softuni.repairShop.model.dto.UserRegisterDTO;
+import org.softuni.repairShop.model.entity.Client;
+import org.softuni.repairShop.model.entity.User;
 import org.springframework.context.annotation.Bean;
 
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
 
 @Configuration
 public class AppConfig {
 
-
+    public AppConfig(PasswordEncoder passwordEncoder) {
     }
 
+    @Bean
+    public ModelMapper modelMapper(PasswordEncoder passwordEncoder) {
+        final ModelMapper modelMapper = new ModelMapper();
+
+        Converter<String, String> passwordConverter
+                = ctx -> (ctx.getSource() == null)
+                ? null
+                : passwordEncoder.encode(ctx.getSource());
+
+
+        modelMapper.createTypeMap(ClientRegisterDTO.class, Client.class)
+                .addMappings(mapping -> mapping
+                        .using(passwordConverter)
+                        .map(ClientRegisterDTO::getPassword, Client::setPassword));
+
+        modelMapper.createTypeMap(UserRegisterDTO.class, User.class)
+                .addMappings(mapping -> mapping
+                        .using(passwordConverter)
+                        .map(UserRegisterDTO::getPassword,User::setPassword));
+
+
+        return modelMapper;
+    }
+}
 
 
 //    @Bean

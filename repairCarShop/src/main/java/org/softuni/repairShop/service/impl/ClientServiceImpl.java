@@ -1,5 +1,6 @@
 package org.softuni.repairShop.service.impl;
 
+import org.modelmapper.ModelMapper;
 import org.softuni.repairShop.model.dto.ClientRegisterDTO;
 import org.softuni.repairShop.model.entity.Client;
 import org.softuni.repairShop.repository.ClientRepository;
@@ -10,31 +11,52 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
-    private final PasswordEncoder passwordEncoder;
+
+    private final ModelMapper modelMapper;
 
 
-    public ClientServiceImpl(ClientRepository clientRepository, PasswordEncoder passwordEncoder) {
+    public ClientServiceImpl(ClientRepository clientRepository, ModelMapper modelMapper) {
         this.clientRepository = clientRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.modelMapper = modelMapper;
     }
 
     @Override
     public void register(ClientRegisterDTO clientRegisterDTO) {
 
-        Client client = mapClient(clientRegisterDTO);
+      //  Client client = mapClient(clientRegisterDTO);
+        Client client = modelMapper.map(ClientRegisterDTO.class, Client.class);
 
         clientRepository.save(client);
 
     }
 
-    private Client mapClient(ClientRegisterDTO clientRegisterDTO) {
-      return  new Client()
-              .setUsername(clientRegisterDTO.getUsername())
-              .setEmail(clientRegisterDTO.getEmail())
-              .setPhoneNumber(clientRegisterDTO.getPhoneNumber())
-              .setFullName(clientRegisterDTO.getFullName())
-              .setPhoneNumber(clientRegisterDTO.getPhoneNumber())
-              .setPassword(passwordEncoder.encode(clientRegisterDTO.getPassword()));
+    @Override
+    public void clientsInit() {
+
+        if(clientRepository.count() == 0){
+            ClientRegisterDTO clientRegisterDTO = new ClientRegisterDTO()
+                    .setFullName("Client Testov")
+                    .setUsername("client_test")
+                    .setEmail("client_test@test.test")
+                    .setAddress("Client Address")
+                    .setPhoneNumber("089880890808")
+                    .setPassword("12345");
+           Client client = modelMapper.map(clientRegisterDTO, Client.class);
+
+           clientRepository.save(client);
+        }
+
     }
+
+//    private Client mapClient(ClientRegisterDTO clientRegisterDTO) {
+//      return  new Client()
+//              .setUsername(clientRegisterDTO.getUsername())
+//              .setEmail(clientRegisterDTO.getEmail())
+//              .setPhoneNumber(clientRegisterDTO.getPhoneNumber())
+//              .setAddress(clientRegisterDTO.getAddress())
+//              .setFullName(clientRegisterDTO.getFullName())
+//              .setPhoneNumber(clientRegisterDTO.getPhoneNumber())
+//              .setPassword(passwordEncoder.encode(clientRegisterDTO.getPassword()));
+//    }
 
 }

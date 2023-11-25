@@ -8,4 +8,5 @@ public interface ClientService {
 
     void register(ClientRegisterDTO clientRegisterDTO);
 
+    void clientsInit();
 }

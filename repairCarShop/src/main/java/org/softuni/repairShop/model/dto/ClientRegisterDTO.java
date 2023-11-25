@@ -1,15 +1,43 @@
 package org.softuni.repairShop.model.dto;
 
-import java.util.Objects;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 
-public final class ClientRegisterDTO {
+public  class ClientRegisterDTO {
+    @Column(nullable = false)
+    @Length(min = 5, max = 50,
+            message = "Full name length must be between 5 and 50 characters")
     private  String fullName;
-    private  String username;
-    private  String email;
+
+    @Column(nullable = false)
+    @Length(min = 5, max = 50,
+            message = "Username length must be between 5 and 50 characters")
+    private String username;
+
+    @Column(nullable = false)
+    @Length(min = 5, max = 50,
+            message = "Email length must be between 5 and 50 characters")
+    @Email(message = "Must be a valid e-mail")
+    private String email;
+
+    @Length(min = 5, max = 50,
+            message = "Address length must be between 5 and 50 characters")
     private  String address;
-    private  String password;
-    private  String confirmPassword;
+
+    //TODO phone number validator
     private  String phoneNumber;
+
+    @Column(nullable = false)
+    @Length(min = 5, max = 20,
+            message = "Password length must be between 5 and 50 characters")
+    private String password;
+
+    @Column(nullable = false)
+    @Length(min = 5, max = 20)
+    private String confirmPassword;
+
+
 
     public ClientRegisterDTO() {
     }
@@ -40,6 +68,7 @@ public final class ClientRegisterDTO {
         this.email = email;
         return this;
     }
+
 
     public String getAddress() {
         return address;
@@ -76,4 +105,5 @@ public final class ClientRegisterDTO {
         this.phoneNumber = phoneNumber;
         return this;
     }
+
 }

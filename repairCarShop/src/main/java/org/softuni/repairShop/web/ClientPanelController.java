@@ -31,7 +31,7 @@ public class ClientPanelController {
 
         vehicleService.addVehicle(vehicleDTO);
 
-        return "index";
+        return "redirect:/";
     }
 
     @ModelAttribute

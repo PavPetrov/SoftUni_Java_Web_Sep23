@@ -15,13 +15,13 @@
                     <form name="my-form"
                           th:action="@{/users/register}"
                           th:object="${userRegisterDTO}"
-                          th:method="post">
+                          th:method="POST">
 
                         <div class="form-group row">
                             <label for="fullName" class="col-md-4 col-form-label text-md-right">Full Name</label>
                             <div class="col-md-6">
                                 <input type="text" id="fullName" th:field="*{fullName}"
-                                       class="form-control" name="fullName" th:errorclass="bg-danger">
+                                       class="form-control" name="fullName" th:errorclass="alert-danger">
                             </div>
                             <small th:if="${#fields.hasErrors('fullName')}"
                                    th:errors="*{fullName}" class="text-danger"></small>
@@ -31,7 +31,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
                             <div class="col-md-6">
                                 <input type="text" id="email" th:field="*{email}"
-                                       class="form-control" name="email" th:errorclass="bg-danger">
+                                       class="form-control" name="email" th:errorclass="alert-danger">
                             </div>
                             <small th:if="${#fields.hasErrors('email')}"
                                    th:errors="*{email}" class="text-danger"></small>
@@ -41,7 +41,7 @@
                             <label for="username" class="col-md-4 col-form-label text-md-right">User Name</label>
                             <div class="col-md-6">
                                 <input type="text" id="username"   th:field="*{username}"
-                                       class="form-control" name="username" th:errorclass="bg-danger">
+                                       class="form-control" name="username" th:errorclass="alert-danger">
                             </div>
                             <small th:if="${#fields.hasErrors('username')}"
                                    th:errors="*{username}" class="text-danger"></small>
@@ -50,7 +50,7 @@
                         <div class="form-group row">
                             <label for="userRole" class="col-md-4 col-form-label text-md-right">Occupation</label>
                             <div class="col-md-6" th:field="${roleEnumList}">
-                                <select id="userRole" class="form-control" name="userRole" th:errorclass="bg-danger">
+                                <select id="userRole" class="form-control" name="userRole" th:errorclass="alert-danger">
                                     <option value="" selected disabled>- Choose occupation -</option>
                                     <option th:each="r:${roleEnumList}"   th:field="*{userRole}"
                                             th:value="${r}" th:text="${r.value.toString()}">Administrator</option>
@@ -76,7 +76,7 @@
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
                             <div class="col-md-6">
-                                <input type="password" id="password"  th:errorclass="bg-danger"
+                                <input type="password" id="password"  th:errorclass="alert-danger"
                                        class="form-control" name="password">
                             </div>
                             <small th:if="${#fields.hasErrors('password')}"
@@ -88,7 +88,7 @@
                             <label for="confirmPassword" class="col-md-4 col-form-label text-md-right"
                                    title="confirmPassword"> Confirm password</label>
                             <div class="col-md-6">
-                                <input type="password" id="confirmPassword" th:errorclass="bg-danger"
+                                <input type="password" id="confirmPassword" th:errorclass="alert-danger"
                                        class="form-control" name="confirmPassword">
                             </div>
                             <small th:if="${#fields.hasErrors('confirmPassword')}"

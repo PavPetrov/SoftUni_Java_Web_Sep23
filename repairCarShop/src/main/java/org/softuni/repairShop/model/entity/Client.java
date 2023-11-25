@@ -4,8 +4,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,18 +26,19 @@ public class Client extends BaseEntity{
     @Length(min = 5, max=50)
     private String email;
 
+    private  String address;
+
     @Column(nullable = false)
-    @Length(min = 5, max=20)
     private String password;
 
-    @Length(max=20)
+    @Length(max=20) //TODO phone number validator
     private String phoneNumber;
 
     @OneToMany(mappedBy = "client")
-    private List<Task> tasks;
+    private List<Task> tasks = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner")
-    private List<Vehicle> vehicles;
+    private List<Vehicle> vehicles = new ArrayList<>();
 
 
     public Client() {
@@ -81,6 +84,15 @@ public class Client extends BaseEntity{
         return this;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public Client setAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
     public Client setPassword(String password) {
         this.password = password;
         return this;
@@ -103,5 +115,6 @@ public class Client extends BaseEntity{
         this.tasks = tasks;
         return this;
     }
+
 
 }

@@ -1,5 +1,6 @@
 package org.softuni.repairShop.service.impl;
 
+import org.modelmapper.ModelMapper;
 import org.softuni.repairShop.model.dto.UserRegisterDTO;
 import org.softuni.repairShop.model.entity.User;
 import org.softuni.repairShop.model.enums.RoleEnum;
@@ -13,16 +14,21 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ModelMapper modelMapper;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.modelMapper = modelMapper;
     }
 
     @Override
     public void register(UserRegisterDTO userRegisterDTO) {
 
-        User user = mapUser(userRegisterDTO);
+     //   User user = mapUser(userRegisterDTO);
+        User user= modelMapper.map(userRegisterDTO, User.class);
+
+
 
         userRepository.save(user);
     }
