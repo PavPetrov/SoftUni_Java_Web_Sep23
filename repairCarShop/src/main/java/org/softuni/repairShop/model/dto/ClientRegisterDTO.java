@@ -1,21 +1,17 @@
 package org.softuni.repairShop.model.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
 public  class ClientRegisterDTO {
-    @Column(nullable = false)
     @Length(min = 5, max = 50,
             message = "Full name length must be between 5 and 50 characters")
     private  String fullName;
 
-    @Column(nullable = false)
     @Length(min = 5, max = 50,
             message = "Username length must be between 5 and 50 characters")
     private String username;
 
-    @Column(nullable = false)
     @Length(min = 5, max = 50,
             message = "Email length must be between 5 and 50 characters")
     @Email(message = "Must be a valid e-mail")
@@ -28,12 +24,10 @@ public  class ClientRegisterDTO {
     //TODO phone number validator
     private  String phoneNumber;
 
-    @Column(nullable = false)
     @Length(min = 5, max = 20,
             message = "Password length must be between 5 and 50 characters")
     private String password;
 
-    @Column(nullable = false)
     @Length(min = 5, max = 20)
     private String confirmPassword;
 

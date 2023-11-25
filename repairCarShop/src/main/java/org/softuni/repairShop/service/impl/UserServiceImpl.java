@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
 //                    .setUserRoles(new ArrayList<>(List.of(new UserRole().setUserRole(RoleEnum.MECHANIC_TIRE),
 //                            new UserRole().setUserRole(RoleEnum.MECHANIC_BODY)
 //                    )))
-                    .setPassword(passwordEncoder.encode("1234"))
+                    .setPassword(passwordEncoder.encode("12345"))
                     .setActive(true);
 
             User workerEngine = new User()
@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
                     .setEmail("ivan@gmail.com")
                     .setUsername("ivan56")
                     .setUserRole(RoleEnum.MECHANIC_ENGINE)
-                    .setPassword(passwordEncoder.encode("1234"))
+                    .setPassword(passwordEncoder.encode("12345"))
                     .setActive(true);
 
             User workerSuspension = new User()
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
                     .setEmail("pesho@gmail.com")
                     .setUsername("pesho_p")
                     .setUserRole(RoleEnum.MECHANIC_SUSPENSION)
-                    .setPassword(passwordEncoder.encode("1234"))
+                    .setPassword(passwordEncoder.encode("12345"))
                     .setActive(true);
 
             User workerBody = new User()
@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
                     .setEmail("gosho@gmail.com")
                     .setUsername("gosho")
                     .setUserRole(RoleEnum.MECHANIC_BODY)
-                    .setPassword(passwordEncoder.encode("1234"))
+                    .setPassword(passwordEncoder.encode("12345"))
                     .setActive(true);
 
             userRepository.save(workerTires);
