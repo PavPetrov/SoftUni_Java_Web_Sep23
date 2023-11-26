@@ -1,9 +1,12 @@
 package org.softuni.repairShop.service.impl;
 
 import org.softuni.repairShop.model.entity.Client;
+import org.softuni.repairShop.model.entity.Role;
 import org.softuni.repairShop.model.entity.User;
 import org.softuni.repairShop.repository.ClientRepository;
 import org.softuni.repairShop.repository.UserRepository;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -50,7 +53,8 @@ public class RepairShopUserDetailsService implements UserDetailsService {
                 org.springframework.security.core.userdetails.User
                         .withUsername(user.getUsername())
                         .password(user.getPassword())
-                        .authorities(List.of())  //TODO Add roles
+         //               .authorities(mapRole(user.getUserRole().getValue())
+                    //    .authorities(List.of())  //TODO Add roles
                         .build();
     }
 
@@ -59,8 +63,12 @@ public class RepairShopUserDetailsService implements UserDetailsService {
                 org.springframework.security.core.userdetails.User
                         .withUsername(client.getUsername())
                         .password(client.getPassword())
-                        .authorities(List.of())  //TODO Add roles
+                   //     .authorities(mapRole(client.getRole()))  //TODO Add roles
                         .build();
+    }
+
+    private static GrantedAuthority mapRole(Role role){
+        return new SimpleGrantedAuthority("ROLE_" + role.getUserRole().name());
     }
 
 }

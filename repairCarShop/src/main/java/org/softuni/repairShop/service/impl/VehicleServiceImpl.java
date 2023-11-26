@@ -11,15 +11,21 @@ import org.springframework.stereotype.Service;
 public class VehicleServiceImpl implements VehicleService {
     private final VehicleRepository vehicleRepository;
 
-    public VehicleServiceImpl(VehicleRepository vehicleRepository) {
+    private final ModelMapper modelMapper;
+
+    public VehicleServiceImpl(VehicleRepository vehicleRepository, ModelMapper modelMapper) {
         this.vehicleRepository = vehicleRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
     public void addVehicle(VehicleDTO vehicleDTO) {
         Vehicle vehicle = mapVehicle(vehicleDTO);
 
+        Vehicle vehicle1= modelMapper.map(vehicleDTO, Vehicle.class);
+
         vehicleRepository.save(vehicle);
+        vehicleRepository.save(vehicle1);
     }
 
     private Vehicle mapVehicle(VehicleDTO vehicleDTO) {

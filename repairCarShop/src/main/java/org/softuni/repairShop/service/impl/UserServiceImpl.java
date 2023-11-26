@@ -8,60 +8,47 @@ import org.softuni.repairShop.repository.UserRepository;
 import org.softuni.repairShop.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
     }
 
     @Override
     public void register(UserRegisterDTO userRegisterDTO) {
 
-     //   User user = mapUser(userRegisterDTO);
-        User user= modelMapper.map(userRegisterDTO, User.class);
-
-
+        User user = modelMapper.map(userRegisterDTO, User.class);
 
         userRepository.save(user);
     }
 
 
-    private User mapUser(UserRegisterDTO userRegisterDTO) {
-
-        return new User()
-                .setFullName(userRegisterDTO.getFullName())
-                .setUsername(userRegisterDTO.getUsername())
-                .setEmail(userRegisterDTO.getEmail())
-                .setUserRole(userRegisterDTO.getUserRole())
-                //         .setUserRoles(userRegisterDTO.getUserRoles())
-                .setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
-    }
-
     @Override
     public void adminInit() {
         Optional<User> optionalAdmin = userRepository.findByUsername("admin");
 
-//        List<UserRole> userRoles = new ArrayList<>(List.of(new UserRole().setUserRole(RoleEnum.ADMINISTRATOR)));
-//        userRoles.add(new UserRole().setUserRole(RoleEnum.ADMINISTRATOR));
+        List<RoleEnum> adminRoles = List.of(
+                RoleEnum.ADMINISTRATOR
+        );
 
         if (optionalAdmin.isEmpty()) {
 
-            User admin = new User()
+            UserRegisterDTO adminDTO = new UserRegisterDTO()
                     .setFullName("Admin Adminov")
                     .setEmail("admin@ad.min")
                     .setUsername("admin")
-                    //        .setUserRoles(userRoles)
-                    .setUserRole(RoleEnum.ADMINISTRATOR)
-                    .setPassword(passwordEncoder.encode("12345"))
-                    .setActive(true);
+                    .setUserRole(adminRoles)
+                    .setPassword("12345");
+            User admin = modelMapper.map(adminDTO, User.class);
+            admin.setActive(true);
             userRepository.save(admin);
         }
 
@@ -73,41 +60,43 @@ public class UserServiceImpl implements UserService {
 
         if (userRepository.count() < 2) {
 
-            User workerTires = new User()
+            RoleEnum engine = RoleEnum.MECHANIC_ENGINE;
+            RoleEnum tire = RoleEnum.MECHANIC_TIRE;
+            RoleEnum body = RoleEnum.MECHANIC_BODY;
+            RoleEnum suspension = RoleEnum.MECHANIC_SUSPENSION;
+
+
+            UserRegisterDTO workerTiresDTO = new UserRegisterDTO()
                     .setFullName("Gumcho Cumchev 1")
                     .setEmail("gumcho@tire.com")
                     .setUsername("gumcho")
-                    .setPassword("1234")
-                    .setUserRole(RoleEnum.MECHANIC_TIRE)
-//                    .setUserRoles(new ArrayList<>(List.of(new UserRole().setUserRole(RoleEnum.MECHANIC_TIRE),
-//                            new UserRole().setUserRole(RoleEnum.MECHANIC_BODY)
-//                    )))
-                    .setPassword(passwordEncoder.encode("12345"))
-                    .setActive(true);
+                    .setUserRole(List.of(tire))
+                    .setPassword("12345");
+            User workerTires = modelMapper.map(workerTiresDTO, User.class).setActive(true);
 
-            User workerEngine = new User()
-                    .setFullName("Ivan Ivanov 1")
-                    .setEmail("ivan@gmail.com")
-                    .setUsername("ivan56")
-                    .setUserRole(RoleEnum.MECHANIC_ENGINE)
-                    .setPassword(passwordEncoder.encode("12345"))
-                    .setActive(true);
+            UserRegisterDTO workerEngineDTO = new UserRegisterDTO()
+                    .setFullName("Bai Ivan")
+                    .setEmail("ivan@bai.h")
+                    .setUsername("bai-ivan")
+                    .setUserRole(List.of(engine, suspension))
+                    .setPassword("12345");
+            User workerEngine = modelMapper.map(workerEngineDTO, User.class).setActive(true);
 
-            User workerSuspension = new User()
-                    .setFullName("Pesho Petrov 1")
-                    .setEmail("pesho@gmail.com")
-                    .setUsername("pesho_p")
-                    .setUserRole(RoleEnum.MECHANIC_SUSPENSION)
-                    .setPassword(passwordEncoder.encode("12345"))
-                    .setActive(true);
+            UserRegisterDTO workerSuspensionDTO = new UserRegisterDTO()
+                    .setFullName("Drago Draganov")
+                    .setEmail("darago@drag.g")
+                    .setUsername("drago")
+                    .setUserRole(List.of(tire, suspension))
+                    .setPassword("12345");
+            User workerSuspension = modelMapper.map(workerSuspensionDTO, User.class).setActive(true);
 
-            User workerBody = new User()
-                    .setFullName("Gosho Petrov 1")
-                    .setEmail("gosho@gmail.com")
-                    .setUsername("gosho")
-                    .setUserRole(RoleEnum.MECHANIC_BODY)
-                    .setPassword(passwordEncoder.encode("12345"))
-                    .setActive(true);
+            UserRegisterDTO workerBodyDTO = new UserRegisterDTO()
+                    .setFullName("Kit Kitov")
+                    .setEmail("shkurkka@ssssh.g")
+                    .setUsername("shkurka")
+                    .setUserRole(List.of(body))
+                    .setPassword("12345");
+            User workerBody = modelMapper.map(workerBodyDTO, User.class).setActive(true);
 
             userRepository.save(workerTires);
             userRepository.save(workerEngine);

@@ -954,7 +954,6 @@ a:focus {
 
 /* footer section*/
 .footer_section {
-    bottom: 0;
     width: 100%;
     background-color: rgba(125, 125, 125, 0.9);
     text-align: center;
@@ -962,7 +961,7 @@ a:focus {
 
 .footer_section p {
     color: #ffffff;
-    padding: 25px 0;
+    padding: 15px 0;
     margin: 0;
 }
 

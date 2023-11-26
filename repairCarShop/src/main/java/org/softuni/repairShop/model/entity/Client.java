@@ -1,37 +1,35 @@
 package org.softuni.repairShop.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import org.hibernate.validator.constraints.Length;
+import org.softuni.repairShop.model.enums.RoleEnum;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "clients")
-public class Client extends BaseEntity{
+public class Client extends BaseEntity {
 
     @Column(nullable = false)
-    @Length(min = 5, max=50)
+    @Length(min = 5, max = 50)
     private String fullName;
 
     @Column(nullable = false, unique = true)
-    @Length(min = 5, max=20)
+    @Length(min = 5, max = 20)
     private String username;
 
     @Column(nullable = false, unique = true)
-    @Length(min = 5, max=50)
+    @Length(min = 5, max = 50)
     private String email;
 
-    private  String address;
+    private String address;
 
     @Column(nullable = false)
     private String password;
 
-    @Length(max=20) //TODO phone number validator
+    @Length(max = 20) //TODO phone number validator
     private String phoneNumber;
 
     @OneToMany(mappedBy = "client")
@@ -40,8 +38,12 @@ public class Client extends BaseEntity{
     @OneToMany(mappedBy = "owner")
     private List<Vehicle> vehicles = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
+    private RoleEnum role;
+
 
     public Client() {
+        this.role = RoleEnum.CLIENT;
     }
 
     public String getFullName() {
@@ -116,5 +118,12 @@ public class Client extends BaseEntity{
         return this;
     }
 
+    public RoleEnum getRole() {
+        return role;
+    }
 
+    public Client setRole(RoleEnum role) {
+        this.role = role;
+        return this;
+    }
 }

@@ -5,7 +5,8 @@ public enum RoleEnum {
     MECHANIC_ENGINE("Engine mechanic"),
     MECHANIC_SUSPENSION("Suspension mechanic"),
     MECHANIC_TIRE("Tires mechanic"),
-    MECHANIC_BODY("Body painter");
+    MECHANIC_BODY("Body painter"),
+    CLIENT("Client");
 
     private final String value;
 

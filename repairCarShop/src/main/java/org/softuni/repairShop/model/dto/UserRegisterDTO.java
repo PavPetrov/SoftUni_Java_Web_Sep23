@@ -3,7 +3,10 @@ package org.softuni.repairShop.model.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
+import org.softuni.repairShop.model.entity.Role;
 import org.softuni.repairShop.model.enums.RoleEnum;
+
+import java.util.List;
 
 
 public class UserRegisterDTO {
@@ -28,7 +31,7 @@ public class UserRegisterDTO {
     private String confirmPassword;
 
     @NotNull(message = "Occupation required")
-    private RoleEnum userRole;
+    private List<RoleEnum> userRole;
 
     public UserRegisterDTO() {
     }
@@ -79,13 +82,12 @@ public class UserRegisterDTO {
     }
 
 
-    public RoleEnum getUserRole() {
+    public List<RoleEnum> getUserRole() {
         return userRole;
     }
 
-    public UserRegisterDTO setUserRole(RoleEnum userRole) {
+    public UserRegisterDTO setUserRole(List<RoleEnum> userRole) {
         this.userRole = userRole;
         return this;
     }
-
 }

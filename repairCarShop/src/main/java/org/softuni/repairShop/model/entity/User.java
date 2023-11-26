@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.softuni.repairShop.model.enums.RoleEnum;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,8 +29,12 @@ public class User extends BaseEntity {
     private String password;
     private Boolean isActive;
 
-    @Enumerated(EnumType.STRING)
-    private RoleEnum userRole;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
 
     @OneToMany
     private List<Task> tasks;
@@ -93,12 +99,12 @@ public class User extends BaseEntity {
         return this;
     }
 
-    public RoleEnum getUserRole() {
-        return userRole;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public User setUserRole(RoleEnum userRole) {
-        this.userRole = userRole;
+    public User setRoles(List<Role> roles) {
+        this.roles = roles;
         return this;
     }
 }

@@ -3,21 +3,30 @@ package org.softuni.repairShop.config;
 
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.Provider;
 import org.softuni.repairShop.model.dto.ClientRegisterDTO;
 import org.softuni.repairShop.model.dto.UserRegisterDTO;
 import org.softuni.repairShop.model.entity.Client;
+import org.softuni.repairShop.model.entity.Role;
 import org.softuni.repairShop.model.entity.User;
+import org.softuni.repairShop.model.enums.RoleEnum;
+import org.softuni.repairShop.repository.UserRoleRepository;
 import org.springframework.context.annotation.Bean;
 
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
+import java.util.Set;
+
 
 @Configuration
 public class AppConfig {
+    private final UserRoleRepository userRoleRepository;
 
-    public AppConfig(PasswordEncoder passwordEncoder) {
+    public AppConfig(UserRoleRepository userRoleRepository) {
+        this.userRoleRepository = userRoleRepository;
     }
 
     @Bean
@@ -29,16 +38,29 @@ public class AppConfig {
                 ? null
                 : passwordEncoder.encode(ctx.getSource());
 
+        Converter<List<RoleEnum>, List<Role>> toEntitySet
+                = ctx -> (ctx.getSource() == null)
+                ? null
+                : userRoleRepository.getAllByuserRoleIn(ctx.getSource());
+
+
+//        Provider<Client> clientProvider = req -> new Client()
+//                .setRole(new Role().setUserRole(RoleEnum.CLIENT));
+
 
         modelMapper.createTypeMap(ClientRegisterDTO.class, Client.class)
+         //       .setProvider(clientProvider)
                 .addMappings(mapping -> mapping
                         .using(passwordConverter)
                         .map(ClientRegisterDTO::getPassword, Client::setPassword));
 
         modelMapper.createTypeMap(UserRegisterDTO.class, User.class)
                 .addMappings(mapping -> mapping
+                        .using(toEntitySet)
+                        .map(UserRegisterDTO::getUserRole, User::setRoles))
+                .addMappings(mapping -> mapping
                         .using(passwordConverter)
-                        .map(UserRegisterDTO::getPassword,User::setPassword));
+                        .map(UserRegisterDTO::getPassword, User::setPassword));
 
 
         return modelMapper;
