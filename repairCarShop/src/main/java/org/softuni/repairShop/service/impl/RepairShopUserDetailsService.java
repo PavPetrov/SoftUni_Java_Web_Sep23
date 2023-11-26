@@ -33,7 +33,7 @@ public class RepairShopUserDetailsService implements UserDetailsService {
 
         if(user.isPresent()){
             return user
-                    .map(this::map)
+                    .map(RepairShopUserDetailsService::map)
                     .orElseThrow(() -> new UsernameNotFoundException("User " + username + "not found!"));
         }
 
@@ -48,13 +48,12 @@ public class RepairShopUserDetailsService implements UserDetailsService {
     }
 
 
-    private UserDetails map(User user) {
+    private static UserDetails map(User user) {
         return
                 org.springframework.security.core.userdetails.User
                         .withUsername(user.getUsername())
                         .password(user.getPassword())
-         //               .authorities(mapRole(user.getUserRole().getValue())
-                    //    .authorities(List.of())  //TODO Add roles
+                        .authorities(user.getRoles().stream().map(RepairShopUserDetailsService::mapRole).toList())
                         .build();
     }
 
@@ -63,7 +62,7 @@ public class RepairShopUserDetailsService implements UserDetailsService {
                 org.springframework.security.core.userdetails.User
                         .withUsername(client.getUsername())
                         .password(client.getPassword())
-                   //     .authorities(mapRole(client.getRole()))  //TODO Add roles
+                        .authorities(new SimpleGrantedAuthority("ROLE_" + client.getRole().name()))
                         .build();
     }
 

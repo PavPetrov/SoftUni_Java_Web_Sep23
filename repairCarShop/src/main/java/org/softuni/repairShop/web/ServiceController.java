@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("service")
+@RequestMapping("/services")
 public class ServiceController {
 
 
@@ -15,5 +15,8 @@ public class ServiceController {
         return "service";
     }
 
-
+    @GetMapping("/contact")
+    public String contact(){
+        return "contact";
+    }
 }
