@@ -1,5 +1,8 @@
 package org.softuni.repairShop.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import org.hibernate.validator.constraints.Length;
@@ -32,10 +35,11 @@ public class Client extends BaseEntity {
     @Length(max = 20) //TODO phone number validator
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Task> tasks = new ArrayList<>();
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private List<Vehicle> vehicles = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)

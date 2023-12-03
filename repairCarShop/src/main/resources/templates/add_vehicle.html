@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/commons::head"></head>
 
 <body>
@@ -10,7 +11,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Client {Full Name} add vehicle</div>
+                <div class="card-header">
+                    <th:block sec:authentication="name"></th:block>
+                    add vehicle
+                </div>
                 <div class="card-body">
                     <form name="my-form"
                           th:action="@{/clients/add_vehicle}"
@@ -68,7 +72,8 @@
                                 <select id="engine" class="form-control" name="engine">
                                     <option value="" selected disabled>- Select engine -</option>
                                     <option th:each="e:${engineEnumList}"
-                                            th:value="${e}" th:text="${e.toString()}">Diesel</option>
+                                            th:value="${e}" th:text="${e.toString()}">Diesel
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -82,7 +87,8 @@
                                     <option value="" selected disabled>- Select engine -</option>
                                     <option th:each="cat:${vehicleCategoryEnumList}"
                                             th:text="${cat.toString()}"
-                                            th:value="${cat}">car</option>
+                                            th:value="${cat}">car
+                                    </option>
                                 </select>
                             </div>
                         </div>

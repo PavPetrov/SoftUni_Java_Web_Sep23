@@ -5,14 +5,14 @@ import org.softuni.repairShop.model.enums.VehicleCategoryEnum;
 import org.softuni.repairShop.model.enums.EngineEnum;
 
 @Entity
-public class Vehicle extends BaseEntity{
+public class Vehicle extends BaseEntity {
 
     private String brand;
 
     private String model;
 
     private int year;
-    @ManyToOne()
+    @ManyToOne
     private Client owner;
 
     @Enumerated(EnumType.STRING)
@@ -80,5 +80,17 @@ public class Vehicle extends BaseEntity{
         return this;
     }
 
+    public Client getOwner() {
+        return owner;
+    }
 
+    public Vehicle setOwner(Client owner) {
+        this.owner = owner;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return brand + " " + model + " " + year + " " + engine + " " + color;
+    }
 }

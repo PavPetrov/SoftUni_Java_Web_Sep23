@@ -14,13 +14,14 @@ public class VehicleDTO {
 
     private int year;
 
-    private Client owner;
+    private String owner;
 
     private EngineEnum engine;
 
     private VehicleCategoryEnum category;
 
     private String color;
+
 
     public VehicleDTO() {
     }
@@ -52,11 +53,11 @@ public class VehicleDTO {
         return this;
     }
 
-    public Client getOwner() {
+    public String getOwner() {
         return owner;
     }
 
-    public VehicleDTO setOwner(Client owner) {
+    public VehicleDTO setOwner(String owner) {
         this.owner = owner;
         return this;
     }

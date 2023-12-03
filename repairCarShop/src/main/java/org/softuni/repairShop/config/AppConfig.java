@@ -3,13 +3,15 @@ package org.softuni.repairShop.config;
 
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.Provider;
 import org.softuni.repairShop.model.dto.ClientRegisterDTO;
 import org.softuni.repairShop.model.dto.UserRegisterDTO;
+import org.softuni.repairShop.model.dto.VehicleDTO;
 import org.softuni.repairShop.model.entity.Client;
 import org.softuni.repairShop.model.entity.Role;
 import org.softuni.repairShop.model.entity.User;
+import org.softuni.repairShop.model.entity.Vehicle;
 import org.softuni.repairShop.model.enums.RoleEnum;
+import org.softuni.repairShop.repository.ClientRepository;
 import org.softuni.repairShop.repository.UserRoleRepository;
 import org.springframework.context.annotation.Bean;
 
@@ -18,15 +20,21 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
-import java.util.Set;
 
 
 @Configuration
 public class AppConfig {
     private final UserRoleRepository userRoleRepository;
 
-    public AppConfig(UserRoleRepository userRoleRepository) {
+    private final ClientRepository clientRepository;
+
+
+
+
+
+    public AppConfig(UserRoleRepository userRoleRepository, ClientRepository clientRepository) {
         this.userRoleRepository = userRoleRepository;
+        this.clientRepository = clientRepository;
     }
 
     @Bean
@@ -43,6 +51,11 @@ public class AppConfig {
                 ? null
                 : userRoleRepository.getAllByuserRoleIn(ctx.getSource());
 
+
+        Converter<String, Client> toClient
+                = ctx -> (ctx.getSource() == null)
+                ? null
+                : clientRepository.getByUsername(ctx.getSource());
 
 //        Provider<Client> clientProvider = req -> new Client()
 //                .setRole(new Role().setUserRole(RoleEnum.CLIENT));
@@ -62,6 +75,11 @@ public class AppConfig {
                         .using(passwordConverter)
                         .map(UserRegisterDTO::getPassword, User::setPassword));
 
+
+        modelMapper.createTypeMap(VehicleDTO.class, Vehicle.class)
+                .addMappings(mapping -> mapping
+                        .using(toClient)
+                        .map(VehicleDTO::getOwner, Vehicle::setOwner));
 
         return modelMapper;
     }

@@ -1,5 +1,7 @@
 package org.softuni.repairShop.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.softuni.repairShop.model.enums.RepairCategoryEnum;
 
@@ -9,7 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "tasks")
 public class Task extends BaseEntity {
-    @OneToOne
+    @ManyToOne
     private Vehicle vehicle;
 
     private LocalDateTime created;
@@ -21,8 +23,10 @@ public class Task extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private RepairCategoryEnum repairCategory;
 
-    @ManyToOne()
-    private Client client;
+    @ManyToOne
+    @JsonManagedReference
+
+    private Client owner;
 
     public Task() {
     }
@@ -72,12 +76,12 @@ public class Task extends BaseEntity {
         return this;
     }
 
-    public Client getClient() {
-        return client;
+    public Client getOwner() {
+        return owner;
     }
 
-    public Task setClient(Client client) {
-        this.client = client;
+    public Task setOwner(Client owner) {
+        this.owner = owner;
         return this;
     }
 }
