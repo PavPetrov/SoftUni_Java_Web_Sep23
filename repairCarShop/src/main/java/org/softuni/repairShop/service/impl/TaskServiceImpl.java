@@ -59,7 +59,6 @@ public class TaskServiceImpl implements TaskService {
     }
 
     private void saveTask(AddTaskDTO addTaskDTO, Client client) {
-
         addTaskDTO.getCategories().forEach(category -> {
             Task task = new Task()
                     .setOwner(client)
