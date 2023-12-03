@@ -11,4 +11,6 @@ public interface TaskService {
     void addTask(AddTaskDTO addTaskDTO, UserDetails client);
 
     List<TaskDTO> getTasks();
+
+    void approve(Long id);
 }

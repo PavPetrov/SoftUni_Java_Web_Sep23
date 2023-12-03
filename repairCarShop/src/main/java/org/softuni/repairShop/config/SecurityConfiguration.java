@@ -22,13 +22,14 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
-            //    .csrf(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authorizeRequests -> authorizeRequests
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                 .requestMatchers("/", "/clients/register", "/users/register").permitAll()
                                 .requestMatchers("/login/error").permitAll()
-                                .requestMatchers("/tasks/api").permitAll()
+                                .requestMatchers("/tasks/api/**").permitAll()
+                                .requestMatchers("/tasks/api/approve/**").permitAll()
                                 .requestMatchers("/login").permitAll()
                                 .requestMatchers("/*").permitAll()
                            //     .requestMatchers("/services").hasRole(RoleEnum.ADMINISTRATOR.name())

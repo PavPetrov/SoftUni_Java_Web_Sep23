@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -45,6 +46,16 @@ public class TaskServiceImpl implements TaskService {
                 .toList();
 
         return list;
+    }
+
+    @Override
+    public void approve(Long id) {
+        Optional<Task> task = taskRepository.findById(id);
+
+        if (task.isPresent()) {
+            task.get().setApproved(true);
+            taskRepository.save(task.get());
+        }
     }
 
     private void saveTask(AddTaskDTO addTaskDTO, Client client) {

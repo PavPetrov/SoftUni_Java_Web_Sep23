@@ -1,19 +1,31 @@
-const APPROVE_URL = 'http://localhost:8080/tasks/api/approove/'
+const APPROVE_URL = 'http://localhost:8080/tasks/api/approve/'
+const GET_URL = 'http://localhost:8080/tasks/api'
 
 async function getAllTasks(url) {
     const response = await fetch(url);
     return response.json();
 }
 
-getAllTasks('http://localhost:8080/tasks/api').then((response) => {
-    render(response)
+getAllTasks(GET_URL).then(async (response) => {
+    await render(response)
 });
 
-function render(res) {
+async function render(res) {
 
     let divToApprove = document.getElementById('toApprove');
+    divToApprove.innerHTML = "";
+
+    let pElemToApprove = createElement("p", "box py-3");
+    pElemToApprove.textContent = " Waiting for approve...."
+    divToApprove.appendChild(pElemToApprove);
+
 
     let divApproved = document.getElementById('approved');
+    divApproved.innerHTML = "";
+
+    let pElemApproved = createElement("p", "box py-3");
+    pElemApproved.textContent = "Approved...."
+    divApproved.appendChild(pElemApproved);
 
 
     res.forEach(res => {
@@ -24,7 +36,7 @@ function render(res) {
         let divImgBox = createElement("div", "img-box");
 
         let imgElem = createElement("img");
-        imgElem.src = "/images/body-repair.png"; // TODO diferent images for category
+        imgElem.src = "/images/body-repair.png"; // TODO different images for category
         divImgBox.appendChild(imgElem);
 
         let divDetailBox = createElement("div", "detail-box");
@@ -40,7 +52,7 @@ function render(res) {
         let aLink = createElement("a");
         aLink.href = "";
         aLink.textContent = "Approve link"
-        aLink.addEventListener('click', approve );
+        aLink.addEventListener('click', approve.bind(null, res.id));
 
         divDetailBox.appendChild(aLink);
 
@@ -53,9 +65,8 @@ function render(res) {
         } else {
             divToApprove.appendChild(divBox);
         }
-
-
     })
+
 
 }
 
@@ -127,6 +138,19 @@ function createTable(res) {
 
 }
 
-function approve(event) {
+function  approve(id, event) {
+
     event.preventDefault();
+
+
+        (async () => {
+            await fetch(APPROVE_URL + id, {
+                method: 'PATCH'
+            })
+            getAllTasks(GET_URL).then(async (response) => {
+                await render(response)
+            });
+        })();
+
+
 }

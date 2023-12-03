@@ -41,6 +41,7 @@ public class TaskController {
     }
 
 
+
     @GetMapping("/add/{category}")
     public String add(@PathVariable("category") String category, Model model,
                       @AuthenticationPrincipal UserDetails client) {

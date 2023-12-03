@@ -38,6 +38,14 @@ public class TaskRestController {
         return tasks;
     }
 
+    @PatchMapping ("/approve/{id}")
+    public String approve(@PathVariable Long id) {
+
+        taskService.approve(id);
+
+        return "tasks";
+    }
+
 
 
 
