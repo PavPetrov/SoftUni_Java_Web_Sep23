@@ -4,7 +4,6 @@ import org.softuni.repairShop.model.dto.VehicleDTO;
 import org.softuni.repairShop.model.enums.EngineEnum;
 import org.softuni.repairShop.model.enums.VehicleCategoryEnum;
 import org.softuni.repairShop.service.VehicleService;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,6 +26,11 @@ public class ClientPanelController {
     @GetMapping("/add_vehicle")
     public String register(){
         return "add_vehicle";
+    }
+
+    @GetMapping("/welcome")
+    public String welcome(){
+        return "client_welcome";
     }
 
     @PostMapping("/add_vehicle")

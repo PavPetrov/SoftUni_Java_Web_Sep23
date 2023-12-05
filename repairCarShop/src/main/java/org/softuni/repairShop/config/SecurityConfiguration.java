@@ -1,6 +1,5 @@
 package org.softuni.repairShop.config;
 
-import org.softuni.repairShop.model.enums.RoleEnum;
 import org.softuni.repairShop.repository.ClientRepository;
 import org.softuni.repairShop.repository.UserRepository;
 import org.softuni.repairShop.service.impl.RepairShopUserDetailsService;
@@ -18,6 +17,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfiguration {
 
+    private final AuthHandler authHandler;
+
+    public SecurityConfiguration(AuthHandler authHandler) {
+        this.authHandler = authHandler;
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
@@ -31,9 +36,10 @@ public class SecurityConfiguration {
                                 .requestMatchers("/api/**").permitAll()
                                 .requestMatchers("/api/tasks/approve/**").permitAll()
                                 .requestMatchers("/login").permitAll()
+                                .requestMatchers("/clients/**").permitAll()
                                 .requestMatchers("/*").permitAll()
-                           //     .requestMatchers("/services").hasRole(RoleEnum.ADMINISTRATOR.name())
-                           //h     .requestMatchers("/services/contact").hasRole(RoleEnum.CLIENT.name())
+                                //     .requestMatchers("/services").hasRole(RoleEnum.ADMINISTRATOR.name())
+                                //h     .requestMatchers("/services/contact").hasRole(RoleEnum.CLIENT.name())
                                 .requestMatchers("/clients/add_vehicle").permitAll()
                                 .anyRequest().authenticated()
 
@@ -43,7 +49,8 @@ public class SecurityConfiguration {
                                 .loginPage("/login")
                                 .usernameParameter("username")
                                 .passwordParameter("password")
-                                .defaultSuccessUrl("/")
+                                .successHandler(authHandler)
+                           //    .defaultSuccessUrl("/")
                                 .failureForwardUrl("/login/error")
                 )
                 .logout(

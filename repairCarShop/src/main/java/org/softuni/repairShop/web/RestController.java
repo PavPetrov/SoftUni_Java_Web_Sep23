@@ -30,7 +30,7 @@ public class RestController {
     @GetMapping("/tasks")
     @ResponseBody
     public List<TaskDTO> tasks() {
-
+        //TODO Filter completed
         List<TaskDTO> tasks = taskService.getTasks();
 
         return tasks;
@@ -48,16 +48,10 @@ public class RestController {
                     user.getRoles().stream().map(role -> role.getUserRole().getRole())
                             .toList();
 
-            List<TaskDTO> allTasks = taskService.getTasks();
+            List<TaskDTO> allApprovedTasks = taskService.getTasks()
+                    .stream().filter(TaskDTO::getApproved).toList();
 
-         //TODO FILTER only approved & match USER CATEGORY ROLE
-            //      TIRES, SUSPENSION, ENGINE, BODY
-
-            //      MECHANIC_ENGINE("Engine mechanic"), MECHANIC_SUSPENSION("Suspension mechanic"),
-            //      MECHANIC_TIRE("Tires mechanic"), MECHANIC_BODY
-            //           tasks.stream().filter(t ->t.getRepairCategory())
-
-            List<TaskDTO> userTasks = allTasks.stream().filter(task ->
+            List<TaskDTO> userTasks = allApprovedTasks.stream().filter(task ->
                     userRoles.contains(task.getRepairCategory().name())).toList();
 
             return userTasks;
@@ -73,6 +67,12 @@ public class RestController {
 
         return "tasks";
     }
+    @PatchMapping("/tasks/complete/{id}")
+    public String complete(@PathVariable Long id) {
 
+        taskService.complete(id);
+
+        return "tasks";
+    }
 
 }

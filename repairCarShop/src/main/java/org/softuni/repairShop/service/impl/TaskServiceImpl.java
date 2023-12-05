@@ -58,6 +58,16 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 
+    @Override
+    public void complete(Long id) {
+        Optional<Task> task = taskRepository.findById(id);
+
+        if (task.isPresent()) {
+            task.get().setCompleted(true);
+            taskRepository.save(task.get());
+        }
+    }
+
     private void saveTask(AddTaskDTO addTaskDTO, Client client) {
         addTaskDTO.getCategories().forEach(category -> {
             Task task = new Task()

@@ -15,6 +15,10 @@ public class Task extends BaseEntity {
     private Vehicle vehicle;
 
     private LocalDateTime created;
+    private LocalDateTime completeDate;
+
+    @OneToOne
+    private User completeBy;
 
     private Boolean approved;
 
@@ -25,8 +29,9 @@ public class Task extends BaseEntity {
 
     @ManyToOne
     @JsonManagedReference
-
     private Client owner;
+
+
 
     public Task() {
     }
@@ -82,6 +87,24 @@ public class Task extends BaseEntity {
 
     public Task setOwner(Client owner) {
         this.owner = owner;
+        return this;
+    }
+
+    public LocalDateTime getCompleteDate() {
+        return completeDate;
+    }
+
+    public Task setCompleteDate(LocalDateTime completeDate) {
+        this.completeDate = completeDate;
+        return this;
+    }
+
+    public User getCompleteBy() {
+        return completeBy;
+    }
+
+    public Task setCompleteBy(User completeBy) {
+        this.completeBy = completeBy;
         return this;
     }
 }

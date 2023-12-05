@@ -4,7 +4,7 @@ public enum RoleEnum {
     ADMINISTRATOR("Service administrator", "ADMINISTRATOR"),
     MECHANIC_ENGINE("Engine mechanic", "ENGINE"),
     MECHANIC_SUSPENSION("Suspension mechanic","SUSPENSION"),
-    MECHANIC_TIRE("Tires mechanic", "TIRE"),
+    MECHANIC_TIRE("Tires mechanic", "TIRES"),
     MECHANIC_BODY("Body painter","BODY"),
     CLIENT("Client", "CLIENT");
 

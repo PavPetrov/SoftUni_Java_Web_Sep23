@@ -13,4 +13,7 @@ public interface TaskService {
     List<TaskDTO> getTasks();
 
     void approve(Long id);
+
+    void complete(Long id);
+
 }
