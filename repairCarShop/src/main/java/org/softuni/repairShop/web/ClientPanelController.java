@@ -24,17 +24,25 @@ public class ClientPanelController {
 
 
     @GetMapping("/add_vehicle")
-    public String register(){
+    public String register() {
         return "add_vehicle";
     }
 
     @GetMapping("/welcome")
-    public String welcome(){
+    public String welcome() {
         return "client_welcome";
     }
 
+    @GetMapping("/my_tasks")
+    public String myTasks() {
+        return "my_tasks";
+    }
+    @GetMapping("/my_vehicles")
+    public String myVehicles() {
+        return "my_vehicles";
+    }
     @PostMapping("/add_vehicle")
-    public String adVehicle(VehicleDTO vehicleDTO, Principal principal){
+    public String adVehicle(VehicleDTO vehicleDTO, Principal principal) {
 
         vehicleDTO.setOwner(principal.getName());
 
@@ -44,12 +52,12 @@ public class ClientPanelController {
     }
 
     @ModelAttribute
-    public EngineEnum[] engineEnums(){
+    public EngineEnum[] engineEnums() {
         return EngineEnum.values();
     }
 
     @ModelAttribute
-    public VehicleCategoryEnum[] vehicleCategoryEnums(){
+    public VehicleCategoryEnum[] vehicleCategoryEnums() {
         return VehicleCategoryEnum.values();
     }
 }

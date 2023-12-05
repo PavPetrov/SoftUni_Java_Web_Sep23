@@ -1,5 +1,6 @@
 package org.softuni.repairShop.config;
 
+import org.softuni.repairShop.model.enums.RoleEnum;
 import org.softuni.repairShop.repository.ClientRepository;
 import org.softuni.repairShop.repository.UserRepository;
 import org.softuni.repairShop.service.impl.RepairShopUserDetailsService;
@@ -31,16 +32,21 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(
                         authorizeRequests -> authorizeRequests
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                                .requestMatchers("/", "/clients/register", "/users/register").permitAll()
-                                .requestMatchers("/login/error").permitAll()
-                                .requestMatchers("/api/**").permitAll()
-                                .requestMatchers("/api/tasks/approve/**").permitAll()
-                                .requestMatchers("/login").permitAll()
-                                .requestMatchers("/clients/**").permitAll()
-                                .requestMatchers("/*").permitAll()
+                         //       .anyRequest().permitAll()
+                                //GUEST
+                                .requestMatchers("/login", "/register","/clients/register","/").permitAll()
+                                //CLIENT user
+                                .requestMatchers("/client/**").hasRole(RoleEnum.CLIENT.name())
+
+
+//                                .requestMatchers("/", "/clients/register", "/users/register").permitAll()
+//                                .requestMatchers("/login/error").permitAll()
+//                                .requestMatchers("/api/**").permitAll()
+//                                .requestMatchers("/api/tasks/approve/**").permitAll()
+//                                .requestMatchers("/clients/**").permitAll()
+//                                .requestMatchers("/*").permitAll()
                                 //     .requestMatchers("/services").hasRole(RoleEnum.ADMINISTRATOR.name())
                                 //h     .requestMatchers("/services/contact").hasRole(RoleEnum.CLIENT.name())
-                                .requestMatchers("/clients/add_vehicle").permitAll()
                                 .anyRequest().authenticated()
 
                 )

@@ -37,10 +37,17 @@ public class TaskController {
 
         taskService.addTask(addTaskDTO, client);
 
-        return "redirect:/tasks";
+        return "redirect:my_tasks";
     }
 
+    @GetMapping("/add")
+    public String add(Model model, @AuthenticationPrincipal UserDetails client) {
+        List<Vehicle> vehicles = clientService.getVehicles(client.getUsername());
 
+        model.addAttribute("vehicles", vehicles);
+
+        return "add_task";
+    }
 
     @GetMapping("/add/{category}")
     public String add(@PathVariable("category") String category, Model model,
@@ -53,13 +60,18 @@ public class TaskController {
         return "add_task";
     }
 
+    @GetMapping("/my_tasks")
+    public String myTasks() {
+        return "my_tasks";
+    }
+
     @ModelAttribute
     public RepairCategoryEnum[] categoryEnums() {
         return RepairCategoryEnum.values();
     }
 
     @ModelAttribute
-    public AddTaskDTO addTaskDTO(){
-        return  new AddTaskDTO();
+    public AddTaskDTO addTaskDTO() {
+        return new AddTaskDTO();
     }
 }
