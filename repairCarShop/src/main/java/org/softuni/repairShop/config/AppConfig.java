@@ -4,12 +4,10 @@ package org.softuni.repairShop.config;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.softuni.repairShop.model.dto.ClientRegisterDTO;
+import org.softuni.repairShop.model.dto.TaskDTO;
 import org.softuni.repairShop.model.dto.UserRegisterDTO;
 import org.softuni.repairShop.model.dto.VehicleDTO;
-import org.softuni.repairShop.model.entity.Client;
-import org.softuni.repairShop.model.entity.Role;
-import org.softuni.repairShop.model.entity.User;
-import org.softuni.repairShop.model.entity.Vehicle;
+import org.softuni.repairShop.model.entity.*;
 import org.softuni.repairShop.model.enums.RoleEnum;
 import org.softuni.repairShop.repository.ClientRepository;
 import org.softuni.repairShop.repository.UserRoleRepository;
@@ -66,6 +64,10 @@ public class AppConfig {
                 .addMappings(mapping -> mapping
                         .using(passwordConverter)
                         .map(ClientRegisterDTO::getPassword, Client::setPassword));
+
+//        modelMapper.createTypeMap(Task.class, TaskDTO.class )
+//                        .addMappings(mapping -> mapping
+//                                .map(Task::getCompleteByUsername, TaskDTO::setUserName));
 
         modelMapper.createTypeMap(UserRegisterDTO.class, User.class)
                 .addMappings(mapping -> mapping

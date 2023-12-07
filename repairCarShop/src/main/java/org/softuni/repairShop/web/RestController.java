@@ -39,14 +39,17 @@ public class RestController {
     @GetMapping("/tasks/users")
     @ResponseBody
     public List<TaskDTO> tasksUsers(@AuthenticationPrincipal UserDetails userDetails) {
+
         if (userDetails != null) {
-            String username = userDetails.getUsername();
+           /* String username = userDetails.getUsername();
 
             User user = userService.findByUsername(username);
 
             List<String> userRoles =
                     user.getRoles().stream().map(role -> role.getUserRole().getRole())
-                            .toList();
+                            .toList();*/
+            List<String> userRoles = userDetails.getAuthorities()
+                    .stream().map(u ->u.getAuthority().replace("ROLE_MECHANIC_","")).toList();
 
             List<TaskDTO> allApprovedTasks = taskService.getTasks()
                     .stream().filter(TaskDTO::getApproved).toList();
@@ -67,11 +70,16 @@ public class RestController {
 
         return "tasks";
     }
+
     @PatchMapping("/tasks/complete/{id}")
-    public String complete(@PathVariable Long id) {
+    public String complete(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails != null) {
+            String username = userDetails.getUsername();
 
-        taskService.complete(id);
-
+            User user = userService.findByUsername(username);
+            taskService.complete(id, user);
+        }
+    //    taskService.complete(id, null);
         return "tasks";
     }
 

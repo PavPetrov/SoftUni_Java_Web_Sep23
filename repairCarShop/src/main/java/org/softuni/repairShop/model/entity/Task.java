@@ -1,12 +1,12 @@
 package org.softuni.repairShop.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.softuni.repairShop.model.enums.RepairCategoryEnum;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "tasks")
@@ -17,8 +17,14 @@ public class Task extends BaseEntity {
     private LocalDateTime created;
     private LocalDateTime completeDate;
 
-    @OneToOne
+    @ManyToOne
     private User completeBy;
+
+
+    public String getCompleteByUsername() {
+        return completeBy != null ? this.completeBy.getUsername() : null;
+    }
+
 
     private Boolean approved;
 
@@ -30,7 +36,6 @@ public class Task extends BaseEntity {
     @ManyToOne
     @JsonManagedReference
     private Client owner;
-
 
 
     public Task() {
@@ -90,8 +95,14 @@ public class Task extends BaseEntity {
         return this;
     }
 
-    public LocalDateTime getCompleteDate() {
-        return completeDate;
+    public String getCompleteDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        if (completeDate != null) {
+            return completeDate.format(formatter);
+        }
+
+        return null;
     }
 
     public Task setCompleteDate(LocalDateTime completeDate) {
@@ -107,4 +118,11 @@ public class Task extends BaseEntity {
         this.completeBy = completeBy;
         return this;
     }
+
+    public String getCreatedDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        return getCreated().format(formatter);
+    }
+
 }

@@ -15,7 +15,12 @@ public class TaskDTO {
     private String vehicleBrand;
     private String vehicleColor;
     private int vehicleYear;
-    private LocalDateTime created;
+    private String createdDate;
+
+    private String completeDate;
+
+    private String completeByUsername;
+
     private Boolean approved;
     private Boolean completed;
 
@@ -29,21 +34,12 @@ public class TaskDTO {
     public TaskDTO() {
     }
 
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
     public Long getId() {
         return id;
     }
 
     public TaskDTO setId(Long id) {
         this.id = id;
-        return this;
-    }
-
-    public TaskDTO setCreated(LocalDateTime created) {
-        this.created = created;
         return this;
     }
 
@@ -143,6 +139,42 @@ public class TaskDTO {
 
     public TaskDTO setOwnerName(String ownerName) {
         this.ownerName = ownerName;
+        return this;
+    }
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public TaskDTO setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+        return this;
+    }
+
+    public String getUserName() {
+        return completeByUsername;
+    }
+
+    public TaskDTO setUserName(String userName) {
+        this.completeByUsername = userName;
+        return this;
+    }
+
+    public String getCompletedDate() {
+        return completeDate;
+    }
+
+    public TaskDTO setCompletedDate(String completedDate) {
+        this.completeDate = completedDate;
+        return this;
+    }
+
+    public String getCompleteDate() {
+        return completeDate;
+    }
+
+    public TaskDTO setCompleteDate(String completeDate) {
+        this.completeDate = completeDate;
         return this;
     }
 }

@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
         if (userRepository.count() < 2) {
 
             RoleEnum engine = RoleEnum.MECHANIC_ENGINE;
-            RoleEnum tire = RoleEnum.MECHANIC_TIRE;
+            RoleEnum tire = RoleEnum.MECHANIC_TIRES;
             RoleEnum body = RoleEnum.MECHANIC_BODY;
             RoleEnum suspension = RoleEnum.MECHANIC_SUSPENSION;
 

@@ -6,6 +6,7 @@ import org.softuni.repairShop.model.dto.AddTaskDTO;
 import org.softuni.repairShop.model.dto.TaskDTO;
 import org.softuni.repairShop.model.entity.Client;
 import org.softuni.repairShop.model.entity.Task;
+import org.softuni.repairShop.model.entity.User;
 import org.softuni.repairShop.repository.ClientRepository;
 import org.softuni.repairShop.repository.TaskRepository;
 import org.softuni.repairShop.service.TaskService;
@@ -39,7 +40,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskDTO> getTasks() {
         List<Task> allTasks = taskRepository.findAll();
-
+//TODO map completedBY username
         List<TaskDTO> list = allTasks
                 .stream()
                 .map(task -> modelMapper.map(task, TaskDTO.class))
@@ -59,12 +60,16 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void complete(Long id) {
+    public void complete(Long id, User user) {
         Optional<Task> task = taskRepository.findById(id);
 
         if (task.isPresent()) {
-            task.get().setCompleted(true);
-            taskRepository.save(task.get());
+            Task taskToComplete = task.get();
+
+            taskToComplete.setCompleted(true);
+            taskToComplete.setCompleteDate(LocalDateTime.now());
+            taskToComplete.setCompleteBy(user);
+            taskRepository.save(taskToComplete);
         }
     }
 
