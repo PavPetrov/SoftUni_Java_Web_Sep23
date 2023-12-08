@@ -92,4 +92,14 @@ public class ClientServiceImpl implements ClientService {
         return client.map(Client::getVehicles).orElse(null);
     }
 
+    @Override
+    public Optional<Client> findByUsername(String username) {
+        return clientRepository.findByUsername(username);
+    }
+
+    @Override
+    public Client getByUsername(String username) {
+        return clientRepository.getByUsername(username);
+    }
+
 }

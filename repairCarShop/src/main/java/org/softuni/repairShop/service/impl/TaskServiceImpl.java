@@ -73,6 +73,18 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 
+    @Override
+    public String findByIdGetOwnerUsername(Long id) {
+        Optional<Task> taskById = taskRepository.findById(id);
+        return taskById.map(task -> task.getOwner().getUsername()).orElse(null);
+
+    }
+
+    @Override
+    public void deleteTask(Long id) {
+         taskRepository.deleteById(id);
+    }
+
     private void saveTask(AddTaskDTO addTaskDTO, Client client) {
         addTaskDTO.getCategories().forEach(category -> {
             Task task = new Task()

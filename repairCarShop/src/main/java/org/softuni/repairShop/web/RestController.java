@@ -1,9 +1,10 @@
 package org.softuni.repairShop.web;
 
 import org.softuni.repairShop.model.dto.TaskDTO;
-import org.softuni.repairShop.model.entity.Role;
+import org.softuni.repairShop.model.entity.Client;
 import org.softuni.repairShop.model.entity.User;
-import org.softuni.repairShop.model.enums.RoleEnum;
+
+import org.softuni.repairShop.service.ClientService;
 import org.softuni.repairShop.service.TaskService;
 import org.softuni.repairShop.service.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,20 +12,25 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Optional;
+
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api")
 public class RestController {
 
+
     private final TaskService taskService;
     private final UserService userService;
 
-    public RestController(TaskService taskService, UserService userService) {
+    private final ClientService clientService;
+
+    public RestController(TaskService taskService, UserService userService, ClientService clientService) {
         this.taskService = taskService;
 
         this.userService = userService;
+
+        this.clientService = clientService;
     }
 
     @GetMapping("/tasks")
@@ -41,13 +47,7 @@ public class RestController {
     public List<TaskDTO> tasksUsers(@AuthenticationPrincipal UserDetails userDetails) {
 
         if (userDetails != null) {
-           /* String username = userDetails.getUsername();
 
-            User user = userService.findByUsername(username);
-
-            List<String> userRoles =
-                    user.getRoles().stream().map(role -> role.getUserRole().getRole())
-                            .toList();*/
             List<String> userRoles = userDetails.getAuthorities()
                     .stream().map(u ->u.getAuthority().replace("ROLE_MECHANIC_","")).toList();
 
@@ -62,6 +62,40 @@ public class RestController {
 
         return null;
     }
+
+    @GetMapping("/tasks/clients")
+    @ResponseBody
+    public List<TaskDTO> tasksClients(@AuthenticationPrincipal UserDetails userDetails) {
+
+        if (userDetails != null) {
+
+            String username = userDetails.getUsername();
+            Optional<Client> client = clientService.findByUsername(username);
+            if(client.isPresent()){
+                Long clientId = client.get().getId();
+                List<TaskDTO> list = taskService.getTasks()
+                        .stream().filter(taskDTO -> taskDTO.getOwnerId().equals(clientId)).toList();
+
+                return list;
+            }
+        }
+        return null;
+    }
+
+
+    @DeleteMapping("/tasks/clients/{id}")
+    public void delClientTask(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails){
+
+        String clientUsername = userDetails.getUsername();
+
+        String taskUsernameById = taskService.findByIdGetOwnerUsername(id);
+
+        if(clientUsername.equals(taskUsernameById)){
+
+             taskService.deleteTask(id);
+        }
+    }
+
 
     @PatchMapping("/tasks/approve/{id}")
     public String approve(@PathVariable Long id) {
