@@ -13,17 +13,18 @@
             <div class="card">
                 <div class="card-header">
                     <th:block sec:authentication="name"></th:block>
-                   add task
+                    add task
                 </div>
                 <div class="card-body">
                     <form name="my-form"
                           th:action="@{/tasks/add}"
-                          th:oject="${addTaskDTO}"
+                          th:object="${addTaskDTO}"
                           th:method="POST">
 
-                        <!-- Engine TYPE !-->
+                        <!-- Vehicle list-->
                         <div class="form-group row">
-                            <label for="addVehicle" class="col-md-4 col-form-label text-md-right">Choose from your vehicles</label>
+                            <label for="addVehicle" class="col-md-4 col-form-label text-md-right">Choose from your
+                                vehicles</label>
                             <div class="col-md-6">
                                 <select id="addVehicle" class="form-control" name="addVehicle">
                                     <option value="" selected disabled>- Select vehicle -</option>
@@ -32,11 +33,14 @@
                                     </option>
                                 </select>
                             </div>
+                            <small th:if="${#fields.hasErrors('addVehicle')}"
+                                   th:errors="*{addVehicle}" class="text-danger"></small>
                         </div>
 
 
-                        <div class="form-group row" >
-                            <label for="categories" class="col-md-4 col-form-label text-md-right">Choose service category</label>
+                        <div class="form-group row">
+                            <label for="categories" class="col-md-4 col-form-label text-md-right">Choose service
+                                category</label>
                             <!-- TODO Align options -->
                             <div th:each="cat:${repairCategoryEnumList}"
                                  class="form-check-inline">
@@ -47,8 +51,9 @@
                                 <label class="form-check-label" for="categories"
                                        th:text="${cat}">roleEnum</label>
                             </div>
+                            <small th:if="${#fields.hasErrors('categories')}"
+                                   th:errors="*{categories}" class="text-danger"></small>
                         </div>
-
 
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-primary">

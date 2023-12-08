@@ -1,4 +1,6 @@
 package org.softuni.repairShop.model.dto;
+
+import jakarta.validation.constraints.NotNull;
 import org.softuni.repairShop.model.entity.RepairCategory;
 import org.softuni.repairShop.model.entity.Vehicle;
 import org.softuni.repairShop.model.enums.RepairCategoryEnum;
@@ -7,10 +9,11 @@ import org.softuni.repairShop.model.enums.RepairCategoryEnum;
 import java.util.List;
 
 public class AddTaskDTO {
+    @NotNull(message = "Vehicle required")
+    private Vehicle addVehicle;
 
-private Vehicle addVehicle;
-
-private List<RepairCategoryEnum> categories;
+    @NotNull(message = "Category required")
+    private List<RepairCategoryEnum> categories;
 
     public AddTaskDTO() {
     }
@@ -32,4 +35,6 @@ private List<RepairCategoryEnum> categories;
         this.categories = categories;
         return this;
     }
+
+
 }

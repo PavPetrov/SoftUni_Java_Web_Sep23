@@ -1,5 +1,6 @@
 package org.softuni.repairShop.web;
 
+import jakarta.validation.Valid;
 import org.softuni.repairShop.model.dto.AddTaskDTO;
 import org.softuni.repairShop.model.entity.Vehicle;
 
@@ -10,7 +11,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import java.util.List;
 
@@ -33,8 +37,16 @@ public class TaskController {
     }
 
     @PostMapping("/add")
-    public String addTasks(AddTaskDTO addTaskDTO, @AuthenticationPrincipal UserDetails client) {
+    public String addTask(@Valid AddTaskDTO addTaskDTO, BindingResult bindingResult,
+                           RedirectAttributes redirectAttributes,
+                           @AuthenticationPrincipal UserDetails client) {
 
+        if(bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("addTaskDTO", addTaskDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addTaskDTO",
+                    bindingResult);
+            return "redirect:add";
+        }
         taskService.addTask(addTaskDTO, client);
 
         return "redirect:my_tasks";
@@ -42,6 +54,7 @@ public class TaskController {
 
     @GetMapping("/add")
     public String add(Model model, @AuthenticationPrincipal UserDetails client) {
+
         List<Vehicle> vehicles = clientService.getVehicles(client.getUsername());
 
         model.addAttribute("vehicles", vehicles);
