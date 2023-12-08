@@ -59,12 +59,19 @@ async function renderAdmin(res) {
         divBox.appendChild(divDetailBox);
 
         if (isApproved) {
-            let pElemCreated = createElement("p");
-            pElemCreated.textContent = "Created on - " + res.created;
-            divDetailBox.appendChild(pElemCreated)
+            //TODO Logic for date completed
+
+            // let pElemCreated = createElement("p");
+            // pElemCreated.textContent = "Created on - " + res.created;
+            // divDetailBox.appendChild(pElemCreated)
             divApproved.appendChild(divBox);
 
         } else {
+
+            let pElemCreated = createElement("p");
+            pElemCreated.textContent = "Created on - " + res.createdDate;
+            divDetailBox.appendChild(pElemCreated)
+            divToApprove.appendChild(divBox);
 
             let aLink = createElement("a");
             aLink.href = "";

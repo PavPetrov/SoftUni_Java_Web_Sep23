@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:sec="http://thymeleaf.org/extras/spring-security">
-<head th:replace="fragments/commons::head"></head>
+<head th:replace="~{fragments/commons::head}"></head>
 
 <body>
 <!-- Navigation-->
-<header th:replace="fragments/commons::header"></header>
+<header th:replace="~{fragments/commons::header}"></header>
 
 <div class="container layout_padding-bottom">
     <div class="row justify-content-center">
@@ -18,22 +18,31 @@
                 <div class="card-body">
                     <form name="my-form"
                           th:action="@{/clients/add_vehicle}"
-                          th:method="post">
+                          th:object="${vehicleDTO}"
+                          th:method="POST">
 
                         <!-- Brand !-->
                         <div class="form-group row">
                             <label for="brand" class="col-md-4 col-form-label text-md-right">Brand</label>
                             <div class="col-md-6">
-                                <input type="text" id="brand" class="form-control" name="brand">
+                                <input type="text" id="brand" class="form-control" name="brand"
+                                       th:field="*{brand}" th:errorclass="alert-danger">
                             </div>
+                            <small th:if="${#fields.hasErrors('brand')}"
+                                   th:errors="*{brand}" class="text-danger"></small>
                         </div>
+
+
 
                         <!-- Model !-->
                         <div class="form-group row">
                             <label for="model" class="col-md-4 col-form-label text-md-right">Model</label>
                             <div class="col-md-6">
-                                <input type="text" id="model" class="form-control" name="model">
+                                <input type="text" id="model" class="form-control" name="model"
+                                th:field="*{model}" th:errorclass="alert-danger">
                             </div>
+                            <small th:if="${#fields.hasErrors('model')}"
+                            th:errors="*{model}" class="text-danger"></small>
                         </div>
 
                         <!--                        The 1st value is the beginning of count,
@@ -54,6 +63,8 @@
                                     </option>
                                 </select>
                             </div>
+                            <small th:if="${#fields.hasErrors('year')}"
+                                 class="text-danger"> Year required</small>
                         </div>
 
 
@@ -61,8 +72,11 @@
                         <div class="form-group row">
                             <label for="color" class="col-md-4 col-form-label text-md-right">Color</label>
                             <div class="col-md-6">
-                                <input type="text" id="color" class="form-control" name="color">
+                                <input type="text" id="color" class="form-control" name="color"
+                                       th:field="*{color}" th:errorclass="alert-danger">
                             </div>
+                            <small th:if="${#fields.hasErrors('color')}"
+                                   th:errors="*{color}" class="text-danger"></small>
                         </div>
 
                         <!-- Engine TYPE !-->
@@ -70,12 +84,15 @@
                             <label for="engine" class="col-md-4 col-form-label text-md-right">Engine type</label>
                             <div class="col-md-6" th:field="${engineEnumList}">
                                 <select id="engine" class="form-control" name="engine">
-                                    <option value="" selected disabled>- Select engine -</option>
+                                    <option value=""
+                                            th:field="*{engine}" th:errorclass="alert-danger">- Select engine -</option>
                                     <option th:each="e:${engineEnumList}"
                                             th:value="${e}" th:text="${e.toString()}">Diesel
                                     </option>
                                 </select>
                             </div>
+                            <small th:if="${#fields.hasErrors('engine')}"
+                                   th:errors="*{engine}" class="text-danger"></small>
                         </div>
 
 
@@ -84,13 +101,16 @@
                             <label for="category" class="col-md-4 col-form-label text-md-right">Category</label>
                             <div class="col-md-6" th:field="${vehicleCategoryEnumList}">
                                 <select id="category" class="form-control" name="category">
-                                    <option value="" selected disabled>- Select engine -</option>
+                                    <option value=""
+                                            th:field="*{category}" th:errorclass="alert-danger">- Select engine -</option>
                                     <option th:each="cat:${vehicleCategoryEnumList}"
                                             th:text="${cat.toString()}"
                                             th:value="${cat}">car
                                     </option>
                                 </select>
                             </div>
+                            <small th:if="${#fields.hasErrors('category')}"
+                                   th:errors="*{category}" class="text-danger"></small>
                         </div>
 
 
@@ -107,7 +127,7 @@
 
 </div>
 
-<footer th:replace="fragments/commons::footer"></footer>
+<footer th:replace="~{fragments/commons::footer}"></footer>
 
 </body>
 </html>

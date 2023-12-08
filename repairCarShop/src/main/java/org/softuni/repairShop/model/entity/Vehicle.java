@@ -1,16 +1,20 @@
 package org.softuni.repairShop.model.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.validator.constraints.Length;
 import org.softuni.repairShop.model.enums.VehicleCategoryEnum;
 import org.softuni.repairShop.model.enums.EngineEnum;
 
 @Entity
 public class Vehicle extends BaseEntity {
-
+    @Column(nullable = false)
+    @Length(min = 1, max = 50)
     private String brand;
-
+    @Column(nullable = false)
+    @Length(min = 1, max = 50)
     private String model;
 
+    @Column(nullable = false)
     private int year;
     @ManyToOne
     private Client owner;
@@ -20,7 +24,7 @@ public class Vehicle extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private VehicleCategoryEnum category;
-
+    @Column(nullable = false)
     private String color;
 
     public Vehicle() {

@@ -1,14 +1,17 @@
 package org.softuni.repairShop.web;
 
+import jakarta.validation.Valid;
 import org.softuni.repairShop.model.dto.VehicleDTO;
 import org.softuni.repairShop.model.enums.EngineEnum;
 import org.softuni.repairShop.model.enums.VehicleCategoryEnum;
 import org.softuni.repairShop.service.VehicleService;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
@@ -41,14 +44,28 @@ public class ClientPanelController {
     public String myVehicles() {
         return "my_vehicles";
     }
+
     @PostMapping("/add_vehicle")
-    public String adVehicle(VehicleDTO vehicleDTO, Principal principal) {
+    public String adVehicle(@Valid VehicleDTO vehicleDTO,  BindingResult bindingResult,
+                            RedirectAttributes redirectAttributes, Principal principal) {
 
         vehicleDTO.setOwner(principal.getName());
 
+        if(bindingResult.hasErrors() ){
+
+
+            redirectAttributes.addFlashAttribute("vehicleDTO", vehicleDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.vehicleDTO",
+                    bindingResult);
+            return "redirect:add_vehicle";
+        }
+
+
+
+
         vehicleService.addVehicle(vehicleDTO);
 
-        return "redirect:/";
+        return "redirect:welcome";
     }
 
     @ModelAttribute
@@ -60,5 +77,10 @@ public class ClientPanelController {
     public VehicleCategoryEnum[] vehicleCategoryEnums() {
         return VehicleCategoryEnum.values();
     }
+    @ModelAttribute
+    public VehicleDTO vehicleDTO(){
+        return new VehicleDTO();
+    }
 }
+
 

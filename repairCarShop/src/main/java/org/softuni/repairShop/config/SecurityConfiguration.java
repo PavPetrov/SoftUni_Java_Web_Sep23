@@ -32,22 +32,22 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(
                         authorizeRequests -> authorizeRequests
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                              .anyRequest().permitAll()
-//                                //GUEST
-//                                .requestMatchers("/login", "/register","/clients/register","/").permitAll()
-//                                //CLIENT user
-//                                .requestMatchers("/client/**").hasRole(RoleEnum.CLIENT.name())
-//
-//
-////                                .requestMatchers("/", "/clients/register", "/users/register").permitAll()
-////                                .requestMatchers("/login/error").permitAll()
-////                                .requestMatchers("/api/**").permitAll()
-////                                .requestMatchers("/api/tasks/approve/**").permitAll()
-////                                .requestMatchers("/clients/**").permitAll()
-////                                .requestMatchers("/*").permitAll()
-//                                //     .requestMatchers("/services").hasRole(RoleEnum.ADMINISTRATOR.name())
-//                                //h     .requestMatchers("/services/contact").hasRole(RoleEnum.CLIENT.name())
-//                                .anyRequest().authenticated()
+                         //     .anyRequest().permitAll()
+                                //GUEST
+                                .requestMatchers("/login", "/register","/clients/register","/").permitAll()
+                                //CLIENT user
+                                .requestMatchers("/client/**").hasRole(RoleEnum.CLIENT.name())
+
+
+//                                .requestMatchers("/", "/clients/register", "/users/register").permitAll()
+//                                .requestMatchers("/login/error").permitAll()
+//                                .requestMatchers("/api/**").permitAll()
+//                                .requestMatchers("/api/tasks/approve/**").permitAll()
+//                                .requestMatchers("/clients/**").permitAll()
+//                                .requestMatchers("/*").permitAll()
+                                //     .requestMatchers("/services").hasRole(RoleEnum.ADMINISTRATOR.name())
+                                //h     .requestMatchers("/services/contact").hasRole(RoleEnum.CLIENT.name())
+                                .anyRequest().authenticated()
 
                 )
                 .formLogin(

@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Open Sans', sans-serif;
-    background-image: url('/static/images/img.png');
+    background-image: url('/images/img.png');
     color: #0c0c0c;
     background-color: #ffffff;
     overflow-x: hidden;
