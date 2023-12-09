@@ -28,18 +28,27 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
-             //   .csrf(AbstractHttpConfigurer::disable)
+                //TODO crsf handle js fetch api
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authorizeRequests -> authorizeRequests
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                         //     .anyRequest().permitAll()
                                 //GUEST
-                                .requestMatchers("/login", "/users/register","/clients/register","/").permitAll()
-                                //CLIENT user
-                                .requestMatchers("/client/**").hasRole(RoleEnum.CLIENT.name())
-                                .requestMatchers("/error").permitAll()
+                                .requestMatchers("/login", "/users/register", "/clients/register", "/").permitAll()
 
-                                .anyRequest().authenticated()
+                                //MECHANIC user
+                                .requestMatchers("/tasks", "/api/tasks", "/api/tasks/complete/**","/api/tasks/users")
+                                .hasAnyRole(RoleEnum.MECHANIC_ENGINE.name(), RoleEnum.MECHANIC_TIRES.name(),
+                                        RoleEnum.MECHANIC_BODY.name(), RoleEnum.MECHANIC_SUSPENSION.name(),
+                                        RoleEnum.ADMINISTRATOR.name())
+                                //CLIENT user
+                                .requestMatchers("/clients/**", "/api/tasks/clients", "/vehicles/**", "/tasks/**")
+                                .hasRole(RoleEnum.CLIENT.name())
+
+                                //ADMIN user
+                                .requestMatchers("/**").hasRole(RoleEnum.ADMINISTRATOR.name())
+                                .requestMatchers("/error").permitAll()
+                               .anyRequest().authenticated()
 
                 )
                 .formLogin(
@@ -48,7 +57,6 @@ public class SecurityConfiguration {
                                 .usernameParameter("username")
                                 .passwordParameter("password")
                                 .successHandler(authHandler)
-                           //    .defaultSuccessUrl("/")
                                 .failureForwardUrl("/login/error")
                 )
                 .logout(
