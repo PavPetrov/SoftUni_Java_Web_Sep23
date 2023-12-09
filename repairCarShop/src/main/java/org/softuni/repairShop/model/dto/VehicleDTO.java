@@ -1,17 +1,12 @@
 package org.softuni.repairShop.model.dto;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
-import org.softuni.repairShop.model.entity.Client;
 import org.softuni.repairShop.model.enums.EngineEnum;
 import org.softuni.repairShop.model.enums.VehicleCategoryEnum;
-import org.springframework.format.annotation.NumberFormat;
+
 
 public class VehicleDTO {
     @Length(min = 1, max = 50,
@@ -22,7 +17,6 @@ public class VehicleDTO {
             message = "Model name length must be between 5 and 50 characters")
     private String model;
 
-//TODO Handle empty string cast to int error
     @Digits(message = "Year required", integer = 4, fraction = 0)
     private int year;
 
@@ -36,6 +30,9 @@ public class VehicleDTO {
             message = "Color length must be between 3 and 50 characters")
     private String color;
 
+    private Long id;
+
+    private Boolean deleted;
 
     public VehicleDTO() {
     }
@@ -46,6 +43,15 @@ public class VehicleDTO {
 
     public VehicleDTO setBrand(String brand) {
         this.brand = brand;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public VehicleDTO setId(Long id) {
+        this.id = id;
         return this;
     }
 
@@ -82,6 +88,15 @@ public class VehicleDTO {
 
     public VehicleDTO setEngine(EngineEnum engine) {
         this.engine = engine;
+        return this;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public VehicleDTO setDeleted(Boolean deleted) {
+        this.deleted = deleted;
         return this;
     }
 

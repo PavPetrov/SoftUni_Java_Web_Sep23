@@ -83,7 +83,7 @@
                                 <a class="nav-link" href="/clients/my_tasks">My Tasks</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/clients/my_vehicles">My Vehicles</a>
+                                <a class="nav-link" th:href="@{'/vehicles/'+${#authentication.name}}">My Vehicles</a>
                             </li>
                         </th:block>
 

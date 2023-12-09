@@ -40,9 +40,9 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskDTO> getTasks() {
         List<Task> allTasks = taskRepository.findAll();
-//TODO map completedBY username
         List<TaskDTO> list = allTasks
                 .stream()
+               .filter(task -> !task.getVehicle().isDeleted())
                 .map(task -> modelMapper.map(task, TaskDTO.class))
                 .toList();
 

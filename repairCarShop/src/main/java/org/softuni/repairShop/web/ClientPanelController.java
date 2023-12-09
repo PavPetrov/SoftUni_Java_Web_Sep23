@@ -40,10 +40,7 @@ public class ClientPanelController {
     public String myTasks() {
         return "my_tasks";
     }
-    @GetMapping("/my_vehicles")
-    public String myVehicles() {
-        return "my_vehicles";
-    }
+
 
     @PostMapping("/add_vehicle")
     public String adVehicle(@Valid VehicleDTO vehicleDTO,  BindingResult bindingResult,

@@ -22,7 +22,6 @@ public class RestController {
 
     private final TaskService taskService;
     private final UserService userService;
-
     private final ClientService clientService;
 
     public RestController(TaskService taskService, UserService userService, ClientService clientService) {
@@ -36,7 +35,7 @@ public class RestController {
     @GetMapping("/tasks")
     @ResponseBody
     public List<TaskDTO> tasks() {
-        //TODO Filter completed
+
         List<TaskDTO> tasks = taskService.getTasks();
 
         return tasks;

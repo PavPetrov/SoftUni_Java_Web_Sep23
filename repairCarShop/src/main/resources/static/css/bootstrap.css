@@ -1538,6 +1538,14 @@ pre code {
   padding: 0.3rem;
 }
 
+.table-sm1 th {
+  padding: 1rem;
+
+}
+.table-sm1 td {
+  padding: 2rem;
+}
+
 .table-bordered {
   border: 1px solid #dee2e6;
 }

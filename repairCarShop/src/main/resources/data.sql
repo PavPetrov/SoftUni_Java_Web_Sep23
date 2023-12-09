@@ -14,14 +14,14 @@ VALUES ('Client Address', 'client_test@test.test', 'Client Testov',
 
 
 
-INSERT INTO vehicle (`brand`, `category`, `color`, `engine`, `model`, `year`, `owner_id`)
-VALUES ('Toyota', 'SUV', 'silver', 'PETROL', 'RAV', 2010, 1),
-       ('Opel', 'COMBI', 'white', 'DIESEL', 'Corsa', 2003, 1),
-       ('Toyota', 'CAR', 'red', 'HYBRID', 'Corrola', 2020, 1),
-       ('Tesla', 'SUV', 'yellow', 'ELECTRIC', 'X', 2021, 2),
-       ('Opel', 'TRUCK', 'green', 'DIESEL', 'NAVARA', 2003, 3),
-       ('VW', 'COMBI', 'pink', 'DIESEL', 'Polo', 2003, 3),
-       ('Subaru', 'CAR', 'black', 'PETROL', 'Impreza', 2000, 4);
+INSERT INTO vehicle (`brand`, `category`, `color`, `engine`, `model`, `year`, `owner_id`,`deleted`)
+VALUES ('Toyota', 'SUV', 'silver', 'PETROL', 'RAV', 2010, 1, false),
+       ('Opel', 'COMBI', 'white', 'DIESEL', 'Corsa', 2003, 1, false),
+       ('Toyota', 'CAR', 'red', 'HYBRID', 'Corrola', 2020, 1, false),
+       ('Tesla', 'SUV', 'yellow', 'ELECTRIC', 'X', 2021, 2, false),
+       ('Opel', 'TRUCK', 'green', 'DIESEL', 'NAVARA', 2003, 3, false),
+       ('VW', 'COMBI', 'pink', 'DIESEL', 'Polo', 2003, 3, false),
+       ('Subaru', 'CAR', 'black', 'PETROL', 'Impreza', 2000, 4, false);
 
 INSERT INTO `tasks` (`approved`, `completed`, `created`, `repair_category`, `owner_id`, `vehicle_id`)
 VALUES (b'0', b'0', '2023-11-30 19:54:29.762704', 'TIRES', 1, 1),

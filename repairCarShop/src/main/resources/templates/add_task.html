@@ -29,6 +29,7 @@
                                 <select id="addVehicle" class="form-control" name="addVehicle">
                                     <option value="" selected disabled>- Select vehicle -</option>
                                     <option th:each="v:${vehicles}"
+                                            th:unless="${v.deleted}"
                                             th:value="${v.getId()}" th:text="${v.toString()}">Vehicle
                                     </option>
                                 </select>

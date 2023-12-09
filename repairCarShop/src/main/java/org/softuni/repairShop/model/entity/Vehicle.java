@@ -26,8 +26,10 @@ public class Vehicle extends BaseEntity {
     private VehicleCategoryEnum category;
     @Column(nullable = false)
     private String color;
+    private boolean deleted;
 
     public Vehicle() {
+        this.deleted = false;
     }
 
     public String getBrand() {
@@ -96,5 +98,13 @@ public class Vehicle extends BaseEntity {
     @Override
     public String toString() {
         return brand + " " + model + " " + year + " " + engine + " " + color;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
     }
 }
