@@ -28,25 +28,17 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
+             //   .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authorizeRequests -> authorizeRequests
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                          //     .anyRequest().permitAll()
                                 //GUEST
-                                .requestMatchers("/login", "/register","/clients/register","/").permitAll()
+                                .requestMatchers("/login", "/users/register","/clients/register","/").permitAll()
                                 //CLIENT user
                                 .requestMatchers("/client/**").hasRole(RoleEnum.CLIENT.name())
+                                .requestMatchers("/error").permitAll()
 
-
-//                                .requestMatchers("/", "/clients/register", "/users/register").permitAll()
-//                                .requestMatchers("/login/error").permitAll()
-//                                .requestMatchers("/api/**").permitAll()
-//                                .requestMatchers("/api/tasks/approve/**").permitAll()
-//                                .requestMatchers("/clients/**").permitAll()
-//                                .requestMatchers("/*").permitAll()
-                                //     .requestMatchers("/services").hasRole(RoleEnum.ADMINISTRATOR.name())
-                                //h     .requestMatchers("/services/contact").hasRole(RoleEnum.CLIENT.name())
                                 .anyRequest().authenticated()
 
                 )

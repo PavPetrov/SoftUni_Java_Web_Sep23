@@ -15,8 +15,4 @@ public class ServiceController {
         return "service";
     }
 
-    @GetMapping("/contact")
-    public String contact(){
-        return "contact";
-    }
 }
