@@ -1,12 +1,12 @@
 package org.softuni.repairShop.service.impl;
 
 import org.modelmapper.ModelMapper;
+import org.softuni.repairShop.model.dto.UserDTO;
 import org.softuni.repairShop.model.dto.UserRegisterDTO;
 import org.softuni.repairShop.model.entity.User;
 import org.softuni.repairShop.model.enums.RoleEnum;
 import org.softuni.repairShop.repository.UserRepository;
 import org.softuni.repairShop.service.UserService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,11 +23,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void register(UserRegisterDTO userRegisterDTO) {
+    public boolean register(UserRegisterDTO userRegisterDTO) {
 
         User user = modelMapper.map(userRegisterDTO, User.class);
 
+        if (userRepository.findByUsername(user.getUsername()).isPresent()
+                || userRepository.findByEmail(user.getEmail()).isPresent()) {
+            return false;
+        }
+
         userRepository.save(user);
+        return true;
     }
 
 
@@ -110,6 +116,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username).orElse(null);
+    }
+
+    @Override
+    public List<UserDTO> findAll() {
+
+
+        List<UserDTO> users = userRepository.findAll().stream().map(user ->
+                modelMapper.map(user, UserDTO.class)).toList();
+
+        return users;
+
     }
 
 

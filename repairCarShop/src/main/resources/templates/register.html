@@ -17,6 +17,8 @@
                           th:object="${userRegisterDTO}"
                           th:method="POST">
 
+                        <div th:if="${usernameOrEmailExist}" class="text-danger">Username or Email already exist</div>
+
                         <div class="form-group row">
                             <label for="fullName" class="col-md-4 col-form-label text-md-right">Full Name</label>
                             <div class="col-md-6">
@@ -40,46 +42,36 @@
                         <div class="form-group row">
                             <label for="username" class="col-md-4 col-form-label text-md-right">User Name</label>
                             <div class="col-md-6">
-                                <input type="text" id="username"   th:field="*{username}"
+                                <input type="text" id="username" th:field="*{username}"
                                        class="form-control" name="username" th:errorclass="alert-danger">
                             </div>
                             <small th:if="${#fields.hasErrors('username')}"
                                    th:errors="*{username}" class="text-danger"></small>
                         </div>
 
-<!--                        <div class="form-group row">-->
-<!--                            <label for="userRole" class="col-md-4 col-form-label text-md-right">Occupation</label>-->
-<!--                            <div class="col-md-6" th:field="${roleEnumList}">-->
-<!--                                <select id="userRole" class="form-control" name="userRole" th:errorclass="alert-danger">-->
-<!--                                    <option value="" selected disabled>- Choose occupation -</option>-->
-<!--                                    <option th:each="r:${roleEnumList}"   th:field="*{userRole}"-->
-<!--                                            th:value="${r}" th:text="${r.value.toString()}">Administrator</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
-<!--                            <small th:if="${#fields.hasErrors('userRole')}"-->
-<!--                                   th:errors="*{userRole}" class="text-danger"></small>-->
-<!--                        </div>-->
 
-
-                        <div class="form-group row" >
-                            <label for="userRoles" class="col-md-4 col-form-label text-md-right">Choose occupation</label>
+                        <div class="form-group row">
+                            <label for="userRoles" class="col-md-4 col-form-label text-md-right">Choose
+                                occupation</label>
                             <!-- TODO Align options -->
-                           <div th:each="r:${roleEnumList}"
+                            <div th:each="r:${roleEnumList}"
                                  th:unless="${r.getValue() == 'Client'}"
                                  class="form-check-inline">
-                                 <input class="form-check-input"
-                                   type="checkbox" id="userRoles" name="userRoles"
-                                        th:field="*{userRole}"
-                                   th:value="${r}">
+                                <input class="form-check-input"
+                                       type="checkbox" id="userRoles" name="userRoles"
+                                       th:field="*{userRole}"
+                                       th:value="${r}">
                                 <label class="form-check-label" for="userRoles"
-                                th:text="${r.getValue()}">roleEnum</label>
+                                       th:text="${r.getValue()}">roleEnum</label>
                             </div>
+                            <small th:if="${#fields.hasErrors('userRole')}"
+                                   th:errors="*{userRole}" class="text-danger"></small>
                         </div>
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
                             <div class="col-md-6">
-                                <input type="password" id="password"  th:errorclass="alert-danger"
+                                <input type="password" id="password" th:errorclass="alert-danger"
                                        class="form-control" name="password">
                             </div>
                             <small th:if="${#fields.hasErrors('password')}"

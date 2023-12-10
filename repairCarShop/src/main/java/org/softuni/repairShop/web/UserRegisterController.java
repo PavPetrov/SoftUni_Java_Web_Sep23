@@ -48,9 +48,12 @@ public class UserRegisterController {
             return "redirect:register";
         }
 
-        userService.register(userRegisterDTO);
+        if( !userService.register(userRegisterDTO)){
+            redirectAttributes.addFlashAttribute("usernameOrEmailExist", true);
+            return "redirect:register";
+        }
 
-        return "index";
+        return "login";
     }
 
     @ModelAttribute

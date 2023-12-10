@@ -29,7 +29,7 @@ public class SecurityConfiguration {
 
         httpSecurity
                 //TODO crsf handle js fetch api
-                .csrf(AbstractHttpConfigurer::disable)
+            //    .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authorizeRequests -> authorizeRequests
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()

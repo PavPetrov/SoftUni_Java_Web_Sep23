@@ -25,12 +25,19 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void register(ClientRegisterDTO clientRegisterDTO) {
+    public boolean register(ClientRegisterDTO clientRegisterDTO) {
 
         Client client = modelMapper.map(clientRegisterDTO, Client.class);
 
+        if( clientRepository.findByUsername(client.getUsername()).isPresent()
+        || clientRepository.findByEmail(client.getEmail()).isPresent()){
+            return false;
+        }
+
+
         clientRepository.save(client);
 
+        return true;
     }
 
     @Override
