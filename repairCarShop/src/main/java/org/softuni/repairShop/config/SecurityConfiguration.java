@@ -28,8 +28,8 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
-                //TODO crsf handle js fetch api
-            //    .csrf(AbstractHttpConfigurer::disable)
+                //TODO csrf handle js fetch api
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authorizeRequests -> authorizeRequests
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
@@ -37,7 +37,8 @@ public class SecurityConfiguration {
                                 .requestMatchers("/login", "/users/register", "/clients/register", "/").permitAll()
 
                                 //MECHANIC user
-                                .requestMatchers("/tasks", "/api/tasks", "/api/tasks/complete/**","/api/tasks/users")
+                                .requestMatchers("/tasks", "/api/tasks", "/api/tasks/complete/**",
+                                        "/api/tasks/users")
                                 .hasAnyRole(RoleEnum.MECHANIC_ENGINE.name(), RoleEnum.MECHANIC_TIRES.name(),
                                         RoleEnum.MECHANIC_BODY.name(), RoleEnum.MECHANIC_SUSPENSION.name(),
                                         RoleEnum.ADMINISTRATOR.name())
@@ -48,8 +49,7 @@ public class SecurityConfiguration {
                                 //ADMIN user
                                 .requestMatchers("/**").hasRole(RoleEnum.ADMINISTRATOR.name())
                                 .requestMatchers("/error").permitAll()
-                               .anyRequest().authenticated()
-
+                                .anyRequest().authenticated()
                 )
                 .formLogin(
                         formLogin -> formLogin

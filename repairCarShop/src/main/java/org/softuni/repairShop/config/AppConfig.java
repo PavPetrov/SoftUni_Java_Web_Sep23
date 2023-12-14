@@ -1,12 +1,11 @@
 package org.softuni.repairShop.config;
 
 
+import jakarta.validation.constraints.NotNull;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
-import org.softuni.repairShop.model.dto.ClientRegisterDTO;
-import org.softuni.repairShop.model.dto.TaskDTO;
-import org.softuni.repairShop.model.dto.UserRegisterDTO;
-import org.softuni.repairShop.model.dto.VehicleDTO;
+import org.modelmapper.Provider;
+import org.softuni.repairShop.model.dto.*;
 import org.softuni.repairShop.model.entity.*;
 import org.softuni.repairShop.model.enums.RoleEnum;
 import org.softuni.repairShop.repository.ClientRepository;
@@ -17,7 +16,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 @Configuration
@@ -44,10 +45,15 @@ public class AppConfig {
                 ? null
                 : passwordEncoder.encode(ctx.getSource());
 
-        Converter<List<RoleEnum>, List<Role>> toEntitySet
+        Converter<List<RoleEnum>, List<Role>> roleEnumToRole
                 = ctx -> (ctx.getSource() == null)
                 ? null
                 : userRoleRepository.getAllByuserRoleIn(ctx.getSource());
+
+        Converter<List<Role>, List<RoleEnum>> roleTORoleEnum
+                = ctx -> (ctx.getSource() == null)
+                ? null
+                : ctx.getSource().stream().map(Role::getUserRole).toList();
 
 
         Converter<String, Client> toClient
@@ -65,13 +71,22 @@ public class AppConfig {
                         .using(passwordConverter)
                         .map(ClientRegisterDTO::getPassword, Client::setPassword));
 
+
+
+        modelMapper.createTypeMap(User.class, UserEditDTO.class)
+                //       .setProvider(clientProvider)
+                .addMappings(mapping -> mapping
+                        .using(roleTORoleEnum)
+                        .map(User::getRoles, UserEditDTO::setUserRoles));
+
+
 //        modelMapper.createTypeMap(Task.class, TaskDTO.class )
 //                        .addMappings(mapping -> mapping
 //                                .map(Task::getCompleteByUsername, TaskDTO::setUserName));
 
         modelMapper.createTypeMap(UserRegisterDTO.class, User.class)
                 .addMappings(mapping -> mapping
-                        .using(toEntitySet)
+                        .using(roleEnumToRole)
                         .map(UserRegisterDTO::getUserRole, User::setRoles))
                 .addMappings(mapping -> mapping
                         .using(passwordConverter)
@@ -82,6 +97,20 @@ public class AppConfig {
                 .addMappings(mapping -> mapping
                         .using(toClient)
                         .map(VehicleDTO::getOwner, Vehicle::setOwner));
+
+        modelMapper.createTypeMap(UserEditDTO.class, User.class)
+                //Skip mappings
+                .addMappings(mapping -> mapping
+                        .skip(UserEditDTO::getFullName, User::setFullName))
+                .addMappings(mapping -> mapping
+                    .skip(UserEditDTO::getEmail, User::setEmail))
+                .addMappings(mapping -> mapping
+                        .skip(UserEditDTO::getActive, User::setActive))
+                .addMappings(mapping -> mapping
+                        .using(roleEnumToRole)
+                        .map(UserEditDTO::getUserRoles, User::setRoles));
+
+
 
         return modelMapper;
     }

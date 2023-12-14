@@ -2,13 +2,16 @@ package org.softuni.repairShop.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.softuni.repairShop.model.dto.UserDTO;
+import org.softuni.repairShop.model.dto.UserEditDTO;
 import org.softuni.repairShop.model.dto.UserRegisterDTO;
+import org.softuni.repairShop.model.entity.Role;
 import org.softuni.repairShop.model.entity.User;
 import org.softuni.repairShop.model.enums.RoleEnum;
 import org.softuni.repairShop.repository.UserRepository;
 import org.softuni.repairShop.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,6 +118,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
+
         return userRepository.findByUsername(username).orElse(null);
     }
 
@@ -126,6 +130,24 @@ public class UserServiceImpl implements UserService {
                 modelMapper.map(user, UserDTO.class)).toList();
 
         return users;
+
+    }
+
+    @Override
+    public UserEditDTO findById(Long id) {
+        UserEditDTO user = modelMapper.map(userRepository.findById(id).get(), UserEditDTO.class);
+        return user;
+    }
+
+    @Override
+    public void editUser(Long id, UserEditDTO userEditDTO) {
+        User user = userRepository.findById(id).get();
+
+//TODO Roles must be from repository ?do bya modellmaper?
+
+        modelMapper.map(userEditDTO, user);
+
+        userRepository.save(user);
 
     }
 

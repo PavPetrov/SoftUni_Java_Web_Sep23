@@ -1,9 +1,9 @@
 package org.softuni.repairShop.service;
 
 import org.softuni.repairShop.model.dto.UserDTO;
+import org.softuni.repairShop.model.dto.UserEditDTO;
 import org.softuni.repairShop.model.dto.UserRegisterDTO;
 import org.softuni.repairShop.model.entity.User;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
@@ -18,4 +18,8 @@ public interface UserService {
 
 
     List<UserDTO> findAll();
+
+    UserEditDTO findById(Long id);
+
+    void editUser(Long id, UserEditDTO userEditDTO);
 }
