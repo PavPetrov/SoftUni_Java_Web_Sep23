@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
                     .setUserRole(adminRoles)
                     .setPassword("12345");
             User admin = modelMapper.map(adminDTO, User.class);
-            admin.setActive(true);
+            admin.setEnabled(true);
             userRepository.save(admin);
         }
 
@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
                     .setUsername("gumcho")
                     .setUserRole(List.of(tire))
                     .setPassword("12345");
-            User workerTires = modelMapper.map(workerTiresDTO, User.class).setActive(true);
+            User workerTires = modelMapper.map(workerTiresDTO, User.class).setEnabled(true);
 
             UserRegisterDTO workerEngineDTO = new UserRegisterDTO()
                     .setFullName("Bai Ivan")
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
                     .setUsername("bai-ivan")
                     .setUserRole(List.of(engine, suspension))
                     .setPassword("12345");
-            User workerEngine = modelMapper.map(workerEngineDTO, User.class).setActive(true);
+            User workerEngine = modelMapper.map(workerEngineDTO, User.class).setEnabled(true);
 
             UserRegisterDTO workerSuspensionDTO = new UserRegisterDTO()
                     .setFullName("Drago Draganov")
@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
                     .setUsername("drago")
                     .setUserRole(List.of(tire, suspension))
                     .setPassword("12345");
-            User workerSuspension = modelMapper.map(workerSuspensionDTO, User.class).setActive(true);
+            User workerSuspension = modelMapper.map(workerSuspensionDTO, User.class).setEnabled(true);
 
             UserRegisterDTO workerBodyDTO = new UserRegisterDTO()
                     .setFullName("Kit Kitov")
@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService {
                     .setUsername("shkurka")
                     .setUserRole(List.of(body))
                     .setPassword("12345");
-            User workerBody = modelMapper.map(workerBodyDTO, User.class).setActive(true);
+            User workerBody = modelMapper.map(workerBodyDTO, User.class).setEnabled(true);
 
             userRepository.save(workerTires);
             userRepository.save(workerEngine);
@@ -134,7 +134,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEditDTO findById(Long id) {
+    public UserEditDTO findUserEditById(Long id) {
         UserEditDTO user = modelMapper.map(userRepository.findById(id).get(), UserEditDTO.class);
         return user;
     }
@@ -143,11 +143,26 @@ public class UserServiceImpl implements UserService {
     public void editUser(Long id, UserEditDTO userEditDTO) {
         User user = userRepository.findById(id).get();
 
-//TODO Roles must be from repository ?do bya modellmaper?
+        //TODO Validation?
 
         modelMapper.map(userEditDTO, user);
 
         userRepository.save(user);
+
+    }
+
+
+    @Override
+    public void proceedActive(Long id, Boolean ctx) {
+
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setEnabled(!user.getEnabled());
+
+            userRepository.save(user);
+        }
 
     }
 

@@ -1,6 +1,7 @@
 package org.softuni.repairShop.web;
 
 import org.softuni.repairShop.model.dto.TaskDTO;
+import org.softuni.repairShop.model.dto.UserEditDTO;
 import org.softuni.repairShop.model.entity.Client;
 import org.softuni.repairShop.model.entity.User;
 
@@ -48,7 +49,7 @@ public class RestController {
         if (userDetails != null) {
 
             List<String> userRoles = userDetails.getAuthorities()
-                    .stream().map(u ->u.getAuthority().replace("ROLE_MECHANIC_","")).toList();
+                    .stream().map(u -> u.getAuthority().replace("ROLE_MECHANIC_", "")).toList();
 
             List<TaskDTO> allApprovedTasks = taskService.getTasks()
                     .stream().filter(TaskDTO::getApproved).toList();
@@ -70,7 +71,7 @@ public class RestController {
 
             String username = userDetails.getUsername();
             Optional<Client> client = clientService.findByUsername(username);
-            if(client.isPresent()){
+            if (client.isPresent()) {
                 Long clientId = client.get().getId();
                 List<TaskDTO> list = taskService.getTasks()
                         .stream().filter(taskDTO -> taskDTO.getOwnerId().equals(clientId)).toList();
@@ -83,15 +84,15 @@ public class RestController {
 
 
     @DeleteMapping("/tasks/clients/{id}")
-    public void delClientTask(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails){
+    public void delClientTask(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails) {
 
         String clientUsername = userDetails.getUsername();
 
         String taskUsernameById = taskService.findByIdGetOwnerUsername(id);
 
-        if(clientUsername.equals(taskUsernameById)){
+        if (clientUsername.equals(taskUsernameById)) {
 
-             taskService.deleteTask(id);
+            taskService.deleteTask(id);
         }
     }
 
@@ -112,8 +113,15 @@ public class RestController {
             User user = userService.findByUsername(username);
             taskService.complete(id, user);
         }
-    //    taskService.complete(id, null);
         return "tasks";
     }
 
+
+    @PatchMapping("/user/activate/{id}/{ctx}")
+    public String activate(@PathVariable Long id, @PathVariable Boolean ctx) {
+
+        userService.proceedActive( id,  ctx);
+
+        return "activate";
+    }
 }

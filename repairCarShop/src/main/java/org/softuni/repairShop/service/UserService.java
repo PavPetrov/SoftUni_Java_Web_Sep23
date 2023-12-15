@@ -19,7 +19,10 @@ public interface UserService {
 
     List<UserDTO> findAll();
 
-    UserEditDTO findById(Long id);
+    UserEditDTO findUserEditById(Long id);
 
     void editUser(Long id, UserEditDTO userEditDTO);
+
+    void proceedActive(Long id, Boolean ctx);
+
 }

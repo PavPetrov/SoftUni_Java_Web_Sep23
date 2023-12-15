@@ -53,6 +53,7 @@ public class RepairShopUserDetailsService implements UserDetailsService {
                 org.springframework.security.core.userdetails.User
                         .withUsername(user.getUsername())
                         .password(user.getPassword())
+                        .disabled(!user.getEnabled())
                         .authorities(user.getRoles().stream().map(RepairShopUserDetailsService::mapRole).toList())
                         .build();
     }

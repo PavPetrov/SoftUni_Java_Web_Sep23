@@ -17,17 +17,17 @@ public class User extends BaseEntity {
     private String fullName;
 
     @Column(nullable = false, unique = true)
-    @Length(min = 5, max=20)
+    @Length(min = 5, max = 20)
     private String username;
 
     @Column(nullable = false, unique = true)
-    @Length(min = 5, max=50)
+    @Length(min = 5, max = 50)
     @Email
     private String email;
 
     @Column(nullable = false)
     private String password;
-    private Boolean isActive;
+    private Boolean isEnabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -40,7 +40,7 @@ public class User extends BaseEntity {
     private List<Task> tasks;
 
     public User() {
-        this.isActive = false;
+        this.setEnabled(false);
     }
 
 
@@ -90,12 +90,12 @@ public class User extends BaseEntity {
     }
 
 
-    public Boolean getActive() {
-        return isActive;
+    public Boolean getEnabled() {
+        return isEnabled;
     }
 
-    public User setActive(Boolean active) {
-        isActive = active;
+    public User setEnabled(Boolean enabled) {
+        isEnabled = enabled;
         return this;
     }
 
