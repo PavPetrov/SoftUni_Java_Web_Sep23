@@ -133,7 +133,6 @@ public class ClientServiceImpl implements ClientService {
 
             clientRepository.save(client);
         }
-
     }
 
     @Override

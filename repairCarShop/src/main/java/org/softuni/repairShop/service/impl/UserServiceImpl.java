@@ -1,10 +1,8 @@
 package org.softuni.repairShop.service.impl;
 
 import org.modelmapper.ModelMapper;
-import org.softuni.repairShop.model.dto.UserDTO;
-import org.softuni.repairShop.model.dto.UserEditDTO;
-import org.softuni.repairShop.model.dto.UserInfoDTO;
-import org.softuni.repairShop.model.dto.UserRegisterDTO;
+import org.softuni.repairShop.model.dto.*;
+import org.softuni.repairShop.model.entity.Client;
 import org.softuni.repairShop.model.entity.Role;
 import org.softuni.repairShop.model.entity.User;
 import org.softuni.repairShop.model.enums.RoleEnum;
@@ -170,6 +168,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfoDTO getUserInfo(String username) {
         return null;
+    }
+
+    @Override
+    public void edit(String username, ClientInfoDTO userToEdit) {
+        Optional<User> userOptional
+                = userRepository.findByUsername(username);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            user.setFullName(userToEdit.getFullName())
+                    .setEmail(userToEdit.getEmail())
+                    .setUsername(userToEdit.getUsername());
+
+            userRepository.save(user);
+        }
     }
 
 
