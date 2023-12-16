@@ -3,6 +3,7 @@ package org.softuni.repairShop.service.impl;
 import org.modelmapper.ModelMapper;
 import org.softuni.repairShop.model.dto.UserDTO;
 import org.softuni.repairShop.model.dto.UserEditDTO;
+import org.softuni.repairShop.model.dto.UserInfoDTO;
 import org.softuni.repairShop.model.dto.UserRegisterDTO;
 import org.softuni.repairShop.model.entity.Role;
 import org.softuni.repairShop.model.entity.User;
@@ -164,6 +165,11 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
         }
 
+    }
+
+    @Override
+    public UserInfoDTO getUserInfo(String username) {
+        return null;
     }
 
 

@@ -1,5 +1,6 @@
 package org.softuni.repairShop.service;
 
+import org.softuni.repairShop.model.dto.ClientInfoDTO;
 import org.softuni.repairShop.model.dto.ClientRegisterDTO;
 import org.softuni.repairShop.model.entity.Client;
 import org.softuni.repairShop.model.entity.Vehicle;
@@ -19,4 +20,10 @@ public interface ClientService {
     Optional<Client> findByUsername(String username);
 
     Client getByUsername(String username);
+
+    ClientInfoDTO getClientInfo(String username);
+
+    void edit(String username, ClientInfoDTO clientToEdit);
+
+    Optional<Client> findByEmail(String email);
 }

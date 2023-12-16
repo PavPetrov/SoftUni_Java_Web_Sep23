@@ -108,8 +108,38 @@
                                     <form th:method="POST" th:action="@{/logout}">
                                         <input type="submit" class="btn nav-link" href="/logout" value="Logout"/>
                                     </form>
-                                    <th:block sec:authentication="name"></th:block>
+
+                                    <th:block sec:authentication="name">
+                                    </th:block>
                                 </div>
+                            </li>
+
+                            <li class="nav-item">
+                                <!-- MECHANICS OPTIONS-->
+                                <div sec:authorize="hasAnyRole('ROLE_MECHANIC_ENGINE',
+                                                    'ROLE_MECHANIC_SUSPENSION',
+                                                    'ROLE_MECHANIC_TIRE',
+                                                    'ROLE_MECHANIC_BODY')">
+                                    <a class="nav-link" th:href="@{'/config/users-edit/'+${#authentication.name}}">
+                                        <img class="img-box img-icon" src="/images/settings_icon.svg">
+                                    </a>
+                                </div>
+
+                                <!-- CLIENTS OPTIONS-->
+                                <th:block sec:authorize="hasRole('ROLE_CLIENT')">
+                                    <a class="nav-link" th:href="@{'/config/clients-edit/'+${#authentication.name}}">
+                                        <img class="img-box img-icon" src="/images/settings_icon.svg">
+                                    </a>
+                                </th:block>
+
+                                <!-- ADMIN OPTIONS-->
+
+                                <th:block sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
+                                    <a class="nav-link" th:href="@{'/config/admin-edit/'+${#authentication.name}}">
+                                        <img class="img-box img-icon" src="/images/settings_icon.svg">
+                                    </a>
+                                </th:block>
+
                             </li>
                         </th:block>
                     </ul>

@@ -1,6 +1,7 @@
 package org.softuni.repairShop.service.impl;
 
 import org.modelmapper.ModelMapper;
+import org.softuni.repairShop.model.dto.ClientInfoDTO;
 import org.softuni.repairShop.model.dto.ClientRegisterDTO;
 import org.softuni.repairShop.model.entity.Client;
 import org.softuni.repairShop.model.entity.Vehicle;
@@ -29,8 +30,8 @@ public class ClientServiceImpl implements ClientService {
 
         Client client = modelMapper.map(clientRegisterDTO, Client.class);
 
-        if( clientRepository.findByUsername(client.getUsername()).isPresent()
-        || clientRepository.findByEmail(client.getEmail()).isPresent()){
+        if (clientRepository.findByUsername(client.getUsername()).isPresent()
+                || clientRepository.findByEmail(client.getEmail()).isPresent()) {
             return false;
         }
 
@@ -107,6 +108,37 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client getByUsername(String username) {
         return clientRepository.getByUsername(username);
+    }
+
+    @Override
+    public ClientInfoDTO getClientInfo(String username) {
+
+        Client client = clientRepository.findByUsername(username).orElse(null);
+
+        ClientInfoDTO clientInfoDTO = modelMapper.map(client, ClientInfoDTO.class);
+        return clientInfoDTO;
+    }
+
+    @Override
+    public void edit(String username, ClientInfoDTO clientToEdit) {
+        Optional<Client> clientOptional
+                = clientRepository.findByUsername(username);
+
+        if (clientOptional.isPresent()) {
+            Client client = clientOptional.get();
+
+            client.setFullName(clientToEdit.getFullName())
+                    .setEmail(clientToEdit.getEmail())
+                    .setUsername(clientToEdit.getUsername());
+
+            clientRepository.save(client);
+        }
+
+    }
+
+    @Override
+    public Optional<Client> findByEmail(String email) {
+        return clientRepository.findByEmail(email);
     }
 
 }

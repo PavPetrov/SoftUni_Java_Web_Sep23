@@ -2,6 +2,7 @@ package org.softuni.repairShop.service;
 
 import org.softuni.repairShop.model.dto.UserDTO;
 import org.softuni.repairShop.model.dto.UserEditDTO;
+import org.softuni.repairShop.model.dto.UserInfoDTO;
 import org.softuni.repairShop.model.dto.UserRegisterDTO;
 import org.softuni.repairShop.model.entity.User;
 
@@ -24,5 +25,7 @@ public interface UserService {
     void editUser(Long id, UserEditDTO userEditDTO);
 
     void proceedActive(Long id, Boolean ctx);
+
+    UserInfoDTO getUserInfo(String username);
 
 }
