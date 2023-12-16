@@ -25,6 +25,9 @@ public interface UserService {
 
     UserInfoDTO getUserInfo(String username);
 
-    void edit(String username, ClientInfoDTO clientNewInfo);
+    void edit(String username, UserInfoDTO userInfoDTO);
 
+    UserInfoDTO getInfo(String username);
+
+    User findByEmail(String emailToEdit);
 }

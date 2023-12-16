@@ -115,8 +115,8 @@ public class ClientServiceImpl implements ClientService {
 
         Client client = clientRepository.findByUsername(username).orElse(null);
 
-        ClientInfoDTO clientInfoDTO = modelMapper.map(client, ClientInfoDTO.class);
-        return clientInfoDTO;
+        return modelMapper.map(client,
+                ClientInfoDTO.class);
     }
 
     @Override

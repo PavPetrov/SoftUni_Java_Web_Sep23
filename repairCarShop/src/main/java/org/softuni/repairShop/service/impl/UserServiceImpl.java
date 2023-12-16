@@ -171,7 +171,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void edit(String username, ClientInfoDTO userToEdit) {
+    public void edit(String username, UserInfoDTO userToEdit) {
         Optional<User> userOptional
                 = userRepository.findByUsername(username);
 
@@ -184,6 +184,20 @@ public class UserServiceImpl implements UserService {
 
             userRepository.save(user);
         }
+    }
+
+    @Override
+    public UserInfoDTO getInfo(String username) {
+
+        User user = userRepository.findByUsername(username).orElse(null);
+
+        return modelMapper.map(user, UserInfoDTO.class);
+    }
+
+    @Override
+    public User findByEmail(String emailToEdit) {
+
+        return userRepository.findByEmail(emailToEdit).orElse(null);
     }
 
 
