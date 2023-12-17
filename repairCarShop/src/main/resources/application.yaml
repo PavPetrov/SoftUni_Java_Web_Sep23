@@ -25,7 +25,7 @@ logging:
       hibernate:
         type:
           descriptor: TRACE
-        SQL: DEBUG
+        SQL:
       nodeValue: WARN
       springframework.security:
     blog: WARN
