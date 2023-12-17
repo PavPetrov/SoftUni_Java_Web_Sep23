@@ -36,3 +36,7 @@ carYear:
   oldest: 1960
 
 
+file:
+  name: "config_logger.txt"
+  path: "src/main/resources/"
+  lineCount: 10
