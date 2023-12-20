@@ -1,6 +1,7 @@
 package org.softuni.repairShop.model.dto;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.softuni.repairShop.model.entity.Role;
@@ -30,7 +31,7 @@ public class UserRegisterDTO {
     @Length(min = 5, max = 20)
     private String confirmPassword;
 
-    @NotNull(message = "Occupation required")
+    @NotEmpty(message = "Occupation required")
     private List<RoleEnum> userRole;
 
     public UserRegisterDTO() {

@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.List;
 import java.util.Optional;
 
 public class RepairShopUserDetailsService implements UserDetailsService {
@@ -34,7 +33,7 @@ public class RepairShopUserDetailsService implements UserDetailsService {
         if(user.isPresent()){
             return user
                     .map(RepairShopUserDetailsService::map)
-                    .orElseThrow(() -> new UsernameNotFoundException("User " + username + "not found!"));
+                    .orElseThrow(() -> new UsernameNotFoundException("User " + username + "not found!") );
         }
 
         if(client.isPresent()){
