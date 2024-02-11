@@ -26,9 +26,9 @@ New users are not active until admin approve and activate at users tab.
 #### username:  drago / password: 12345      ---> divisions -> tires, suspension
 #### username:  shkurka / password: 12345    ---> divisions -> body
 
-When logging in, users will see only the tasks of their division(s).
-Users can complete tasks.
-Users can change full name, e-mail and username on the settings tab.
+When logging in, users will see only the tasks of their division(s).  
+Users can complete tasks.  
+Users can change full name, e-mail and username on the settings tab.  
 
 ##
 * ### Autoservice clients
