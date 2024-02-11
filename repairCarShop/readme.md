@@ -15,9 +15,9 @@ Service tab is showing after login as admin.
 * Administrator can activate and  edit autoservice [workers](#autoservice-workers) in which division(s) are occupied
 ![admin-users](https://github.com/PavPetrov/SoftUni_Java_Web_Sep23/assets/102189350/5ddd62ff-ffac-44e8-ac89-a1c70ba4118c)
 
-* Administrator can change Full name, e-mail and username on seting section.
-New users can register at [https://repairshop.mangobush-4c8ab9c0.westeurope.azurecontainerapps.io/users/register](https://repairshop.mangobush-4c8ab9c0.westeurope.azurecontainerapps.io/users/register).
-New users are not active until admin approve and activate at users tab.
+* Administrator can change Full name, e-mail and username on seting section.  
+New users can register at [https://repairshop.mangobush-4c8ab9c0.westeurope.azurecontainerapps.io/users/register](https://repairshop.mangobush-4c8ab9c0.westeurope.azurecontainerapps.io/users/register).  
+New users are not active until admin approve and activate at users tab.  
 
 ##
 * ### Autoservice workers
