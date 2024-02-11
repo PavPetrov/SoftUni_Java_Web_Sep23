@@ -38,7 +38,7 @@ Users can change full name, e-mail and username on the settings tab.
 New clients can register at [https://repairshop.mangobush-4c8ab9c0.westeurope.azurecontainerapps.io/clients/register](https://repairshop.mangobush-4c8ab9c0.westeurope.azurecontainerapps.io/clients/register)
 
 * ADD TASK  
-Clients can add task by clicking on devision link or ADD TASK link.
+Clients can add task by clicking on division link or ADD TASK link.
 ![add-task](https://github.com/PavPetrov/SoftUni_Java_Web_Sep23/assets/102189350/d27f1f5f-ef4f-4c20-bd2b-1873eaabcc16)
 On ADD TASK tab client must choose vehicle and service category(s).
   
