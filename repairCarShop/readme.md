@@ -37,20 +37,20 @@ Users can change full name, e-mail and username on the settings tab.
 
 New clients can register at [https://repairshop.mangobush-4c8ab9c0.westeurope.azurecontainerapps.io/clients/register](https://repairshop.mangobush-4c8ab9c0.westeurope.azurecontainerapps.io/clients/register)
 
-* ADD TASK
+* ADD TASK  
 Clients can add task by clicking on devision link or ADD TASK link.
 ![add-task](https://github.com/PavPetrov/SoftUni_Java_Web_Sep23/assets/102189350/d27f1f5f-ef4f-4c20-bd2b-1873eaabcc16)
 On ADD TASK tab client must choose vehicle and service category(s).
-
-*ADD VEHICLE
+  
+*ADD VEHICLE  
 Clients can add a new vehicle in the add-vehicle form
 ![add-vehicle (2)](https://github.com/PavPetrov/SoftUni_Java_Web_Sep23/assets/102189350/76e07bfa-840d-465c-b1b0-1dbc59db3945)
 
-*MY TASKS
+*MY TASKS  
 Clients can view uncompleted and completed own tasks
 ![my-tasks](https://github.com/PavPetrov/SoftUni_Java_Web_Sep23/assets/102189350/ba3bc14b-80e0-4729-a3c0-9a16e41718fc)
 
-*MY VEHICLES
-Clients can view and delete their own vehicles.
-Clients can change  their full name, e-mail and username on the settings tab.
+*MY VEHICLES  
+Clients can view and delete their own vehicles.  
+Clients can change  their full name, e-mail and username on the settings tab.  
 
