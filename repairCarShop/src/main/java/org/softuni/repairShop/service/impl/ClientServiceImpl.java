@@ -42,53 +42,53 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void clientsInit() {
-//
-//        if (clientRepository.count() == 0) {
-//            ClientRegisterDTO clientRegisterDTO = new ClientRegisterDTO()
-//                    .setFullName("Client Testov")
-//                    .setUsername("client")
-//                    .setEmail("client_test@test.test")
-//                    .setAddress("Client Address")
-//                    .setPhoneNumber("089880890808")
-//                    .setPassword("12345");
-//            Client client = modelMapper.map(clientRegisterDTO, Client.class);
-//
-//            clientRepository.save(client);
-//
-//            ClientRegisterDTO client1RegisterDTO1 = new ClientRegisterDTO()
-//                    .setFullName("Client Testov 1")
-//                    .setUsername("client1")
-//                    .setEmail("client1_test@test.test")
-//                    .setAddress("Client Address")
-//                    .setPhoneNumber("089880890808")
-//                    .setPassword("12345");
-//            Client client1 = modelMapper.map(client1RegisterDTO1, Client.class);
-//
-//            clientRepository.save(client1);
-//
-//            ClientRegisterDTO clientRegisterDTO2 = new ClientRegisterDTO()
-//                    .setFullName("Client Testov 2")
-//                    .setUsername("client2")
-//                    .setEmail("client2_test@test.test")
-//                    .setAddress("Client Address2")
-//                    .setPhoneNumber("089880890808")
-//                    .setPassword("12345");
-//            Client client2 = modelMapper.map(clientRegisterDTO2, Client.class);
-//
-//            clientRepository.save(client2);
-//
-//            ClientRegisterDTO clientRegisterDTO3 = new ClientRegisterDTO()
-//                    .setFullName("Client Testov3")
-//                    .setUsername("client3")
-//                    .setEmail("client3_test@test.test")
-//                    .setAddress("Client Address3")
-//                    .setPhoneNumber("089880890808")
-//                    .setPassword("12345");
-//            Client client3 = modelMapper.map(clientRegisterDTO3, Client.class);
-//
-//            clientRepository.save(client3);
-//
-//        }
+
+        if (clientRepository.count() == 0) {
+            ClientRegisterDTO clientRegisterDTO = new ClientRegisterDTO()
+                    .setFullName("Client Testov")
+                    .setUsername("client")
+                    .setEmail("client_test@test.test")
+                    .setAddress("Client Address")
+                    .setPhoneNumber("089880890808")
+                    .setPassword("12345");
+            Client client = modelMapper.map(clientRegisterDTO, Client.class);
+
+            clientRepository.save(client);
+
+            ClientRegisterDTO client1RegisterDTO1 = new ClientRegisterDTO()
+                    .setFullName("Client Testov 1")
+                    .setUsername("client1")
+                    .setEmail("client1_test@test.test")
+                    .setAddress("Client Address")
+                    .setPhoneNumber("089880890808")
+                    .setPassword("12345");
+            Client client1 = modelMapper.map(client1RegisterDTO1, Client.class);
+
+            clientRepository.save(client1);
+
+            ClientRegisterDTO clientRegisterDTO2 = new ClientRegisterDTO()
+                    .setFullName("Client Testov 2")
+                    .setUsername("client2")
+                    .setEmail("client2_test@test.test")
+                    .setAddress("Client Address2")
+                    .setPhoneNumber("089880890808")
+                    .setPassword("12345");
+            Client client2 = modelMapper.map(clientRegisterDTO2, Client.class);
+
+            clientRepository.save(client2);
+
+            ClientRegisterDTO clientRegisterDTO3 = new ClientRegisterDTO()
+                    .setFullName("Client Testov3")
+                    .setUsername("client3")
+                    .setEmail("client3_test@test.test")
+                    .setAddress("Client Address3")
+                    .setPhoneNumber("089880890808")
+                    .setPassword("12345");
+            Client client3 = modelMapper.map(clientRegisterDTO3, Client.class);
+
+            clientRepository.save(client3);
+
+        }
     }
 
     @Override

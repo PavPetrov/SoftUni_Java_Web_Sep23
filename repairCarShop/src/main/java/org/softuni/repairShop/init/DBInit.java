@@ -34,6 +34,6 @@ public class DBInit implements CommandLineRunner {
 
         userService.adminInit();
         userService.workersInit();
-    //   clientService.clientsInit();
+        clientService.clientsInit();
     }
 }
