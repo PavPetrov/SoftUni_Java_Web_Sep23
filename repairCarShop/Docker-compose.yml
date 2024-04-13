@@ -12,6 +12,7 @@ services:
       - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+      - /src/main/resources/data.sql:/docker-entrypoint-initdb.d
     networks:
       - backend
   repairshop:
@@ -31,8 +32,5 @@ volumes:
   mysql-data:
 networks:
   backend:
-    external: true
-
-
 
 
